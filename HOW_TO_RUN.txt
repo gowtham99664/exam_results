@@ -1,0 +1,65 @@
+================================================================================
+SPMVV EXAM RESULTS - HOW TO RUN THE APPLICATION
+================================================================================
+
+LOCATION: /root/spmvv-exam-results/run.sh
+
+WHAT THE SCRIPT DOES:
+1. Stops any previously running backend and frontend services
+2. Backs up the MySQL database to backups/ directory with timestamp
+3. Starts Django backend on port 8000
+4. Starts React frontend on port 2026
+5. Shows you the status and URLs
+
+================================================================================
+HOW TO RUN:
+================================================================================
+
+Simply execute:
+    /root/spmvv-exam-results/run.sh
+
+Or from anywhere:
+    bash /root/spmvv-exam-results/run.sh
+
+================================================================================
+AFTER RUNNING:
+================================================================================
+
+Backend:  http://10.127.248.83:8000
+Frontend: http://10.127.248.83:2026
+
+Logs:
+  - Backend:  /tmp/django.log
+  - Frontend: /tmp/vite.log
+
+Database Backup Location:
+  /root/spmvv-exam-results/backups/spmvv_results_YYYYMMDD_HHMMSS.sql
+
+================================================================================
+HOW TO STOP:
+================================================================================
+
+    pkill -f 'manage.py runserver' && pkill -f 'vite'
+
+================================================================================
+HOW TO RESTORE DATABASE BACKUP:
+================================================================================
+
+    mysql -u spmvv_user -pSpmvvDb@2026 spmvv_results < /root/spmvv-exam-results/backups/spmvv_results_YYYYMMDD_HHMMSS.sql
+
+Replace YYYYMMDD_HHMMSS with the actual backup file timestamp.
+
+================================================================================
+TROUBLESHOOTING:
+================================================================================
+
+If backend doesn't start:
+    cat /tmp/django.log
+
+If frontend doesn't start:
+    cat /tmp/vite.log
+
+Check running services:
+    ps aux | grep -E '(manage.py runserver|vite)' | grep -v grep
+
+================================================================================

@@ -2108,3 +2108,34 @@ INFO 2026-02-09 09:45:45,525 basehttp "GET /api/students/search/?q=TEST123 HTTP/
 INFO 2026-02-09 09:45:47,333 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
 INFO 2026-02-09 09:45:47,782 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 510
 INFO 2026-02-09 09:46:55,200 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-09 09:49:40,190 log Unauthorized: /api/statistics/
+WARNING 2026-02-09 09:49:40,191 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025 HTTP/1.1" 401 172
+INFO 2026-02-09 09:50:17,473 basehttp "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2026-02-09 09:50:17,493 basehttp "OPTIONS /api/users/ HTTP/1.1" 200 0
+INFO 2026-02-09 09:50:17,779 basehttp "GET /api/users/ HTTP/1.1" 200 376
+INFO 2026-02-09 09:50:18,007 basehttp "GET /api/users/ HTTP/1.1" 200 376
+INFO 2026-02-09 09:51:10,554 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 09:51:10,555 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 09:51:10,633 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 09:51:10,638 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 09:51:10,828 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 09:51:10,967 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 09:51:10,997 basehttp "GET /api/statistics/? HTTP/1.1" 200 4521
+INFO 2026-02-09 09:51:11,130 basehttp "GET /api/statistics/? HTTP/1.1" 200 4521
+INFO 2026-02-09 09:51:57,234 basehttp "OPTIONS /api/students/search/?q=TEST123 HTTP/1.1" 200 0
+INFO 2026-02-09 09:51:57,452 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 09:51:59,054 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 09:51:59,283 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 510
+INFO 2026-02-09 09:53:28,813 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 0
+INFO 2026-02-09 09:53:29,089 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 4510
+INFO 2026-02-09 10:12:39,730 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-09 10:13:05,682 log Not Found: /api/
+WARNING 2026-02-09 10:13:05,682 basehttp "GET /api/ HTTP/1.1" 404 7305
+WARNING 2026-02-09 10:13:11,951 log Unauthorized: /api/results/
+WARNING 2026-02-09 10:13:11,951 basehttp "GET /api/results/ HTTP/1.1" 401 58
+INFO 2026-02-09 10:16:01,740 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-09 10:16:15,432 log Unauthorized: /api/results/
+WARNING 2026-02-09 10:16:15,432 basehttp "GET /api/results/ HTTP/1.1" 401 58
+INFO 2026-02-09 10:20:08,680 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-09 10:20:20,355 log Unauthorized: /api/results/
+WARNING 2026-02-09 10:20:20,356 basehttp "GET /api/results/ HTTP/1.1" 401 58

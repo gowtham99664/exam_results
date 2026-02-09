@@ -13,3 +13,7 @@ WARNING 2026-02-07 17:45:18,014 middleware Account is locked: TEST123 from 10.18
 WARNING 2026-02-07 17:45:18,015 views Account locked: TEST123 from 10.189.129.238
 WARNING 2026-02-07 17:45:18,815 middleware Account is locked: TEST123 from 10.189.129.238. 29 minutes remaining
 WARNING 2026-02-07 17:45:18,815 views Account locked: TEST123 from 10.189.129.238
+WARNING 2026-02-09 15:45:46,888 middleware Failed login attempt: 227010 from 10.189.165.212
+WARNING 2026-02-09 15:45:46,890 views Failed login attempt: 227010 from 10.189.165.212. 5 attempts remaining
+WARNING 2026-02-09 15:45:51,478 middleware Failed login attempt: 2270101 from 10.189.165.212
+WARNING 2026-02-09 15:45:51,479 views Failed login attempt: 2270101 from 10.189.165.212. 5 attempts remaining

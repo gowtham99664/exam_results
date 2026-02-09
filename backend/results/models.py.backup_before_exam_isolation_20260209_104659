@@ -122,11 +122,10 @@ class Result(models.Model):
     
     class Meta:
         db_table = 'results'
-        unique_together = ['roll_number', 'exam_name']
+        unique_together = ['roll_number', 'year', 'semester', 'result_type']
         indexes = [
             models.Index(fields=['roll_number', 'year', 'semester']),
             models.Index(fields=['uploaded_at']),
-            models.Index(fields=['exam_name']),
         ]
     
     def __str__(self):

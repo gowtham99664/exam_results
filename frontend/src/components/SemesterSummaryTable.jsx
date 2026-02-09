@@ -2,20 +2,59 @@ import React, { useState } from 'react';
 import { studentService } from '../services/resultsService';
 
 const SemesterSummaryTable = ({ studentInfo, semesterSummary, onRefresh }) => {
-  const [expandedSemester, setExpandedSemester] = useState(null);
+  const [expandedGroup, setExpandedGroup] = useState(null);
+  const [expandedExam, setExpandedExam] = useState(null);
   const [subjectDetails, setSubjectDetails] = useState({});
   const [loading, setLoading] = useState({});
-  const [editingSubject, setEditingSubject] = useState(null);
 
-  const toggleSemester = async (resultId) => {
-    if (expandedSemester === resultId) {
-      setExpandedSemester(null);
+  // Group and calculate summary data
+  const groupedData = React.useMemo(() => {
+    if (!semesterSummary || semesterSummary.length === 0) return [];
+    
+    const groups = {};
+    semesterSummary.forEach(item => {
+      const key = `${item.year}-${item.semester}`;
+      if (!groups[key]) {
+        groups[key] = {
+          year: item.year,
+          semester: item.semester,
+          attempts: [],
+          latestAttempt: null
+        };
+      }
+      groups[key].attempts.push(item);
+    });
+    
+    // Sort attempts chronologically (oldest first: January before February)
+    Object.values(groups).forEach(group => {
+      group.attempts.sort((a, b) => new Date(a.uploaded_at) - new Date(b.uploaded_at));
+      group.latestAttempt = group.attempts[group.attempts.length - 1]; // Most recent
+    });
+    
+    return Object.values(groups).sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return a.semester - b.semester;
+    });
+  }, [semesterSummary]);
+
+  const toggleGroup = (groupKey) => {
+    if (expandedGroup === groupKey) {
+      setExpandedGroup(null);
+      setExpandedExam(null);
+    } else {
+      setExpandedGroup(groupKey);
+      setExpandedExam(null);
+    }
+  };
+
+  const toggleExam = async (resultId) => {
+    if (expandedExam === resultId) {
+      setExpandedExam(null);
       return;
     }
 
-    setExpandedSemester(resultId);
+    setExpandedExam(resultId);
 
-    // Fetch subject details if not already loaded
     if (!subjectDetails[resultId]) {
       setLoading({ ...loading, [resultId]: true });
       try {
@@ -30,334 +69,298 @@ const SemesterSummaryTable = ({ studentInfo, semesterSummary, onRefresh }) => {
     }
   };
 
-  const handleEditClick = (subject) => {
-    setEditingSubject(subject);
-  };
-
-  const handleUpdateSuccess = () => {
-    setEditingSubject(null);
-    // Refresh subject details
-    if (expandedSemester) {
-      const resultId = expandedSemester;
-      setLoading({ ...loading, [resultId]: true });
-      studentService.getSemesterSubjects(resultId)
-        .then(data => {
-          setSubjectDetails({ ...subjectDetails, [resultId]: data.subjects });
-        })
-        .catch(error => {
-          console.error('Error refreshing subject details:', error);
-        })
-        .finally(() => {
-          setLoading({ ...loading, [resultId]: false });
-        });
-    }
-    // Also refresh the parent
-    if (onRefresh) {
-      onRefresh();
-    }
-  };
-
   return (
-    <div className="card mb-4">
-      <div className="card-header">
-        <h5 className="mb-0">Student Results History</h5>
+    <div className="card shadow-sm" style={{ border: 'none', borderRadius: '10px' }}>
+      {/* Header */}
+      <div className="card-header text-white p-3" style={{ 
+        background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+        borderTopLeftRadius: '10px',
+        borderTopRightRadius: '10px'
+      }}>
+        <h5 className="mb-2" style={{ fontWeight: '600' }}>
+          STUDENT RESULTS HISTORY
+        </h5>
         {studentInfo && (
-          <div className="mt-2">
-            <strong>Roll Number:</strong> {studentInfo.roll_number} | 
-            <strong> Name:</strong> {studentInfo.student_name} | 
-            <strong> Course:</strong> {studentInfo.course} | 
-            <strong> Branch:</strong> {studentInfo.branch}
+          <div style={{ fontSize: '0.95rem', opacity: '0.95' }}>
+            <strong>{studentInfo.roll_number}</strong> | {studentInfo.student_name} | {studentInfo.course} - {studentInfo.branch}
           </div>
         )}
       </div>
-      <div className="card-body">
-        <div className="table-responsive">
-          <table className="table table-bordered table-hover">
-            <thead className="table-light">
-              <tr>
-                <th>Year</th>
-                <th>Semester</th>
-                <th>Exam Name</th>
-                <th>Total %</th>
-                <th>Result</th>
-                <th>Pending Subjects</th>
-                <th>Number of Attempts</th>
-                <th>Completion Month/Year</th>
-                <th>Uploaded At</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {semesterSummary && semesterSummary.length > 0 ? (
-                semesterSummary.map((semester) => (
-                  <React.Fragment key={semester.result_id}>
-                    <tr>
-                      <td>{semester.year}</td>
-                      <td>{semester.semester}</td>
-                      <td>{semester.exam_name}</td>
-                      <td>{semester.total_marks_percentage ? semester.total_marks_percentage.toFixed(2) + '%' : 'N/A'}</td>
-                      <td>
-                        <span className={`badge ${semester.overall_result === 'Pass' ? 'bg-success' : 'bg-danger'}`}>
-                          {semester.overall_result}
-                        </span>
-                      </td>
-                      <td>{semester.pending_subjects}</td>
-                      <td>{semester.max_attempts}</td>
-                      <td>
-                        {semester.completion_date ? (
-                          <span className="badge bg-success">
-                            {new Date(semester.completion_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+
+      <div className="card-body p-0">
+        {groupedData && groupedData.length > 0 ? (
+          <div className="table-responsive">
+            <table className="table table-bordered mb-0" style={{ width: '100%' }}>
+              {/* Main Table Header */}
+              <thead style={{ 
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white'
+              }}>
+                <tr>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>YEAR</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>SEMESTER</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>TOTAL SUBJECTS</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>PERCENTAGE</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>RESULT</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>PENDING</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>ATTEMPTS</th>
+                  <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>ACTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                {groupedData.map((group, groupIdx) => {
+                  const groupKey = `${group.year}-${group.semester}`;
+                  const isExpanded = expandedGroup === groupKey;
+                  const latest = group.latestAttempt;
+                  
+                  return (
+                    <React.Fragment key={groupKey}>
+                      {/* Main Row */}
+                      <tr 
+                        style={{ 
+                          cursor: 'pointer',
+                          backgroundColor: isExpanded ? '#e3f2fd' : (groupIdx % 2 === 0 ? '#f8f9fa' : 'white'),
+                          transition: 'all 0.2s ease'
+                        }}
+                        onClick={() => toggleGroup(groupKey)}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e3f2fd'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = isExpanded ? '#e3f2fd' : (groupIdx % 2 === 0 ? '#f8f9fa' : 'white')}
+                      >
+                        <td className="text-center align-middle py-3" style={{ fontWeight: '600' }}>
+                          {group.year}
+                        </td>
+                        <td className="text-center align-middle py-3" style={{ fontWeight: '600' }}>
+                          {group.semester}
+                        </td>
+                        <td className="text-center align-middle py-3">
+                          {latest.total_subjects || 'N/A'}
+                        </td>
+                        <td className="text-center align-middle py-3">
+                          <strong style={{ color: '#1976d2' }}>
+                            {latest.total_marks_percentage ? latest.total_marks_percentage.toFixed(2) + '%' : 'N/A'}
+                          </strong>
+                        </td>
+                        <td className="text-center align-middle py-3">
+                          <span className={`badge ${latest.overall_result === 'Pass' ? 'bg-success' : 'bg-danger'} me-1`}>
+                            {latest.overall_result}
                           </span>
-                        ) : (
-                          <span className="text-muted">-</span>
-                        )}
-                      </td>
-                      <td>{new Date(semester.uploaded_at).toLocaleString()}</td>
-                      <td>
-                        <button
-                          className="btn btn-sm btn-primary"
-                          onClick={() => toggleSemester(semester.result_id)}
-                        >
-                          {expandedSemester === semester.result_id ? 'Hide Details' : 'View Details'}
-                        </button>
-                      </td>
-                    </tr>
-                    {expandedSemester === semester.result_id && (
-                      <tr>
-                        <td colSpan="10">
-                          {loading[semester.result_id] ? (
-                            <div className="text-center p-3">
-                              <div className="spinner-border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                              </div>
-                            </div>
-                          ) : subjectDetails[semester.result_id] ? (
-                            <div className="p-3">
-                              <h6>Subject-wise Details</h6>
-                              <table className="table table-sm table-bordered">
-                                <thead className="table-secondary">
-                                  <tr>
-                                    <th>Subject Code</th>
-                                    <th>Subject Name</th>
-                                    <th>Internal</th>
-                                    <th>External</th>
-                                    <th>Total</th>
-                                    <th>Result</th>
-                                    <th>Grade</th>
-                                    <th>Attempts</th>
-                                    <th>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  {subjectDetails[semester.result_id].map((subject) => (
-                                    <tr key={subject.id}>
-                                      <td>{subject.subject_code}</td>
-                                      <td>{subject.subject_name}</td>
-                                      <td>{subject.internal_marks !== null ? subject.internal_marks : 'N/A'}</td>
-                                      <td>{subject.external_marks !== null ? subject.external_marks : 'N/A'}</td>
-                                      <td>{subject.total_marks !== null ? subject.total_marks : 'N/A'}</td>
-                                      <td>
-                                        <span className={`badge ${
-                                          subject.subject_result === 'pass' ? 'bg-success' :
-                                          subject.subject_result === 'fail' ? 'bg-danger' : 'bg-secondary'
-                                        }`}>
-                                          {subject.subject_result}
-                                        </span>
-                                      </td>
-                                      <td>{subject.grade || 'N/A'}</td>
-                                      <td>
-                                        <span className="badge bg-info">{subject.attempts}</span>
-                                      </td>
-                                      <td>
-                                        <button
-                                          className="btn btn-sm btn-warning"
-                                          onClick={() => handleEditClick(subject)}
-                                        >
-                                          Edit
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          ) : (
-                            <div className="p-3 text-center">No subject details available</div>
-                          )}
+                          <span className="badge bg-secondary">
+                            {latest.overall_grade || 'N/A'}
+                          </span>
+                        </td>
+                        <td className="text-center align-middle py-3">
+                          <span className={`badge ${latest.pending_subjects > 0 ? 'bg-warning text-dark' : 'bg-success'}`}>
+                            {latest.pending_subjects}
+                          </span>
+                        </td>
+                        <td className="text-center align-middle py-3">
+                          <span className="badge bg-info">
+                            {group.attempts.length}
+                          </span>
+                        </td>
+                        <td className="text-center align-middle py-3">
+                          <button className="btn btn-sm btn-primary" style={{ fontWeight: '500' }}>
+                            {isExpanded ? '▲ HIDE' : '▼ VIEW'}
+                          </button>
                         </td>
                       </tr>
-                    )}
-                  </React.Fragment>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="10" className="text-center">No semester data available</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      {editingSubject && (
-        <UpdateMarksModal
-          subject={editingSubject}
-          onClose={() => setEditingSubject(null)}
-          onSuccess={handleUpdateSuccess}
-        />
-      )}
-    </div>
-  );
-};
+                      {/* Expanded Attempts Section */}
+                      {isExpanded && (
+                        <tr>
+                          <td colSpan="8" className="p-0" style={{ backgroundColor: '#f0f4f8' }}>
+                            <div className="p-3">
+                              <h6 className="mb-3" style={{ 
+                                color: '#1e3c72', 
+                                fontWeight: '600',
+                                textTransform: 'uppercase'
+                              }}>
+                                Exam Attempts - Year {group.year} Semester {group.semester}
+                              </h6>
+                              
+                              {/* Attempts Table */}
+                              <div className="table-responsive">
+                                <table className="table table-bordered mb-0 bg-white" style={{ width: '100%' }}>
+                                  <thead style={{ 
+                                    background: 'linear-gradient(135deg, #4a90e2 0%, #357abd 100%)',
+                                    color: 'white'
+                                  }}>
+                                    <tr>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>ATTEMPT</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>EXAM NAME</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>TYPE</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>PERCENTAGE</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>RESULT</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>GRADE</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>PENDING</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>DATE</th>
+                                      <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>ACTION</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {group.attempts.map((attempt, index) => (
+                                      <React.Fragment key={attempt.result_id}>
+                                        <tr style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : 'white' }}>
+                                          <td className="text-center align-middle py-3">
+                                            <span className="badge bg-dark">#{index + 1}</span>
+                                          </td>
+                                          <td className="text-center align-middle py-3" style={{ fontWeight: '500' }}>
+                                            {attempt.exam_name}
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            <span className={`badge ${attempt.result_type === 'Regular' ? 'bg-primary' : 'bg-warning text-dark'}`}>
+                                              {attempt.result_type}
+                                            </span>
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            <strong style={{ color: '#1976d2' }}>
+                                              {attempt.total_marks_percentage ? attempt.total_marks_percentage.toFixed(2) + '%' : 'N/A'}
+                                            </strong>
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            <span className={`badge ${attempt.overall_result === 'Pass' ? 'bg-success' : 'bg-danger'}`}>
+                                              {attempt.overall_result}
+                                            </span>
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            <strong>{attempt.overall_grade || 'N/A'}</strong>
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            <span className={`badge ${attempt.pending_subjects > 0 ? 'bg-warning text-dark' : 'bg-success'}`}>
+                                              {attempt.pending_subjects}
+                                            </span>
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            {new Date(attempt.uploaded_at).toLocaleDateString('en-IN', { 
+                                              day: '2-digit',
+                                              month: 'short',
+                                              year: 'numeric'
+                                            })}
+                                          </td>
+                                          <td className="text-center align-middle py-3">
+                                            <button
+                                              className="btn btn-sm btn-info"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleExam(attempt.result_id);
+                                              }}
+                                              style={{ fontWeight: '500' }}
+                                            >
+                                              {expandedExam === attempt.result_id ? 'HIDE' : 'VIEW'}
+                                            </button>
+                                          </td>
+                                        </tr>
 
-const UpdateMarksModal = ({ subject, onClose, onSuccess }) => {
-  const [formData, setFormData] = useState({
-    internal_marks: subject.internal_marks || 0,
-    external_marks: subject.external_marks || 0,
-    total_marks: subject.total_marks || 0,
-    subject_result: subject.subject_result || 'fail',
-    grade: subject.grade || ''
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => {
-      const updated = { ...prev, [name]: value };
-      
-      // Auto-calculate total marks if internal or external changes
-      if (name === 'internal_marks' || name === 'external_marks') {
-        const internal = parseInt(name === 'internal_marks' ? value : prev.internal_marks) || 0;
-        const external = parseInt(name === 'external_marks' ? value : prev.external_marks) || 0;
-        updated.total_marks = internal + external;
-      }
-      
-      return updated;
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setError(null);
-
-    try {
-      await studentService.updateSubjectMarks(subject.id, formData);
-      alert('Marks updated successfully!');
-      onSuccess();
-    } catch (err) {
-      console.error('Error updating marks:', err);
-      setError(err.response?.data?.error || 'Failed to update marks');
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Update Subject Marks</h5>
-            <button type="button" className="btn-close" onClick={onClose}></button>
+                                        {/* Subject Details */}
+                                        {expandedExam === attempt.result_id && (
+                                          <tr>
+                                            <td colSpan="9" className="p-3" style={{ backgroundColor: '#ffffff' }}>
+                                              {loading[attempt.result_id] ? (
+                                                <div className="text-center py-3">
+                                                  <div className="spinner-border text-primary" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                  </div>
+                                                  <p className="mt-3 text-muted">Loading subject details...</p>
+                                                </div>
+                                              ) : subjectDetails[attempt.result_id] ? (
+                                                <div>
+                                                  <h6 className="mb-3" style={{ 
+                                                    color: '#1e3c72', 
+                                                    fontWeight: '600',
+                                                    textTransform: 'uppercase'
+                                                  }}>
+                                                    Subject-wise Performance - {attempt.exam_name}
+                                                  </h6>
+                                                  <div className="table-responsive">
+                                                    <table className="table table-bordered mb-0" style={{ width: '100%' }}>
+                                                      <thead style={{ 
+                                                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                                        color: 'white'
+                                                      }}>
+                                                        <tr>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>SUBJECT CODE</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>SUBJECT NAME</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>INTERNAL</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>EXTERNAL</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>TOTAL</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>RESULT</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>GRADE</th>
+                                                          <th className="text-center align-middle py-3" style={{ fontWeight: '600' }}>ATTEMPTS</th>
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                        {subjectDetails[attempt.result_id].map((subject, idx) => (
+                                                          <tr key={subject.id} style={{ 
+                                                            backgroundColor: idx % 2 === 0 ? '#f8f9fa' : 'white'
+                                                          }}>
+                                                            <td className="text-center align-middle py-3">
+                                                              <strong>{subject.subject_code}</strong>
+                                                            </td>
+                                                            <td className="text-center align-middle py-3" style={{ fontWeight: '500' }}>
+                                                              {subject.subject_name}
+                                                            </td>
+                                                            <td className="text-center align-middle py-3">
+                                                              {subject.internal_marks ?? '-'}
+                                                            </td>
+                                                            <td className="text-center align-middle py-3">
+                                                              {subject.external_marks ?? '-'}
+                                                            </td>
+                                                            <td className="text-center align-middle py-3">
+                                                              <strong style={{ color: '#1976d2' }}>
+                                                                {subject.total_marks ?? '-'}
+                                                              </strong>
+                                                            </td>
+                                                            <td className="text-center align-middle py-3">
+                                                              <span className={`badge ${
+                                                                subject.subject_result === 'Pass' ? 'bg-success' :
+                                                                subject.subject_result === 'Fail' ? 'bg-danger' : 'bg-secondary'
+                                                              }`}>
+                                                                {subject.subject_result}
+                                                              </span>
+                                                            </td>
+                                                            <td className="text-center align-middle py-3">
+                                                              <strong>{subject.grade || '-'}</strong>
+                                                            </td>
+                                                            <td className="text-center align-middle py-3">
+                                                              <span className="badge bg-info">
+                                                                {subject.attempts}
+                                                              </span>
+                                                            </td>
+                                                          </tr>
+                                                        ))}
+                                                      </tbody>
+                                                    </table>
+                                                  </div>
+                                                </div>
+                                              ) : (
+                                                <div className="alert alert-warning mb-0">
+                                                  No subject details available
+                                                </div>
+                                              )}
+                                            </td>
+                                          </tr>
+                                        )}
+                                      </React.Fragment>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="modal-body">
-              {error && (
-                <div className="alert alert-danger" role="alert">
-                  {error}
-                </div>
-              )}
-              
-              <div className="mb-3">
-                <strong>Subject:</strong> {subject.subject_code} - {subject.subject_name}
-              </div>
-              <div className="mb-3">
-                <strong>Current Attempts:</strong> {subject.attempts}
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Internal Marks</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="internal_marks"
-                  value={formData.internal_marks}
-                  onChange={handleChange}
-                  min="0"
-                  max="100"
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">External Marks</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="external_marks"
-                  value={formData.external_marks}
-                  onChange={handleChange}
-                  min="0"
-                  max="100"
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Total Marks (Auto-calculated)</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="total_marks"
-                  value={formData.total_marks}
-                  readOnly
-                  disabled
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Result</label>
-                <select
-                  className="form-select"
-                  name="subject_result"
-                  value={formData.subject_result}
-                  onChange={handleChange}
-                >
-                  <option value="pass">Pass</option>
-                  <option value="fail">Fail</option>
-                  <option value="absent">Absent</option>
-                </select>
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Grade</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="grade"
-                  value={formData.grade}
-                  onChange={handleChange}
-                  maxLength="10"
-                />
-              </div>
-
-              <div className="alert alert-info">
-                <small>
-                  <strong>Note:</strong> If you change the result from 'fail' to 'pass', 
-                  the attempt count will automatically increment.
-                </small>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={onClose}>
-                Cancel
-              </button>
-              <button type="submit" className="btn btn-primary" disabled={submitting}>
-                {submitting ? 'Updating...' : 'Update Marks'}
-              </button>
-            </div>
-          </form>
-        </div>
+        ) : (
+          <div className="text-center py-5 text-muted">
+            <div style={{ fontSize: '3rem', opacity: '0.3' }}>📋</div>
+            <p className="mt-3">No semester data available</p>
+          </div>
+        )}
       </div>
     </div>
   );

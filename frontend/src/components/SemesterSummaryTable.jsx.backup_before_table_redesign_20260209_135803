@@ -1,0 +1,406 @@
+import React, { useState } from 'react';
+import { studentService } from '../services/resultsService';
+
+const SemesterSummaryTable = ({ studentInfo, semesterSummary, onRefresh }) => {
+  const [expandedGroup, setExpandedGroup] = useState(null);
+  const [expandedExam, setExpandedExam] = useState(null);
+  const [subjectDetails, setSubjectDetails] = useState({});
+  const [loading, setLoading] = useState({});
+  const [editingSubject, setEditingSubject] = useState(null);
+
+  // Group semester summary by year and semester
+  const groupedData = React.useMemo(() => {
+    if (!semesterSummary || semesterSummary.length === 0) return [];
+    
+    const groups = {};
+    semesterSummary.forEach(item => {
+      const key = `${item.year}-${item.semester}`;
+      if (!groups[key]) {
+        groups[key] = {
+          year: item.year,
+          semester: item.semester,
+          attempts: []
+        };
+      }
+      groups[key].attempts.push(item);
+    });
+    
+    Object.values(groups).forEach(group => {
+      group.attempts.sort((a, b) => new Date(b.uploaded_at) - new Date(a.uploaded_at));
+    });
+    
+    return Object.values(groups).sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return a.semester - b.semester;
+    });
+  }, [semesterSummary]);
+
+  const toggleGroup = (groupKey) => {
+    if (expandedGroup === groupKey) {
+      setExpandedGroup(null);
+      setExpandedExam(null);
+    } else {
+      setExpandedGroup(groupKey);
+      setExpandedExam(null);
+    }
+  };
+
+  const toggleExam = async (resultId) => {
+    if (expandedExam === resultId) {
+      setExpandedExam(null);
+      return;
+    }
+
+    setExpandedExam(resultId);
+
+    if (!subjectDetails[resultId]) {
+      setLoading({ ...loading, [resultId]: true });
+      try {
+        const data = await studentService.getSemesterSubjects(resultId);
+        setSubjectDetails({ ...subjectDetails, [resultId]: data.subjects });
+      } catch (error) {
+        console.error('Error fetching subject details:', error);
+        alert('Failed to load subject details');
+      } finally {
+        setLoading({ ...loading, [resultId]: false });
+      }
+    }
+  };
+
+  const handleEditClick = (subject) => {
+    setEditingSubject(subject);
+  };
+
+  const handleUpdateSuccess = () => {
+    setEditingSubject(null);
+    if (expandedExam) {
+      const resultId = expandedExam;
+      setLoading({ ...loading, [resultId]: true });
+      studentService.getSemesterSubjects(resultId)
+        .then(data => {
+          setSubjectDetails({ ...subjectDetails, [resultId]: data.subjects });
+        })
+        .catch(error => {
+          console.error('Error refreshing subject details:', error);
+        })
+        .finally(() => {
+          setLoading({ ...loading, [resultId]: false });
+        });
+    }
+    if (onRefresh) {
+      onRefresh();
+    }
+  };
+
+  return (
+    <div className="card mb-3">
+      <div className="card-header bg-primary text-white py-2">
+        <h6 className="mb-1">Student Results History</h6>
+        {studentInfo && (
+          <small className="d-block">
+            <strong>{studentInfo.roll_number}</strong> | {studentInfo.student_name} | {studentInfo.course} | {studentInfo.branch}
+          </small>
+        )}
+      </div>
+      <div className="card-body p-2">
+        {groupedData && groupedData.length > 0 ? (
+          <div>
+            {groupedData.map((group) => {
+              const groupKey = `${group.year}-${group.semester}`;
+              const isGroupExpanded = expandedGroup === groupKey;
+              
+              return (
+                <div key={groupKey} className="border mb-2">
+                  <div 
+                    className="bg-light p-2 d-flex justify-content-between align-items-center"
+                    style={{ cursor: 'pointer', fontSize: '0.9rem' }}
+                    onClick={() => toggleGroup(groupKey)}
+                  >
+                    <div>
+                      <span className="badge bg-primary me-2">Y{group.year}</span>
+                      <span className="badge bg-info me-2">S{group.semester}</span>
+                      <span className="badge bg-secondary">{group.attempts.length} attempt(s)</span>
+                    </div>
+                    <button className="btn btn-sm btn-primary py-0" style={{ fontSize: '0.8rem' }}>
+                      {isGroupExpanded ? '▲ Hide' : '▼ View'}
+                    </button>
+                  </div>
+
+                  {isGroupExpanded && (
+                    <div className="p-2" style={{ fontSize: '0.85rem' }}>
+                      {group.attempts.map((attempt, index) => (
+                        <div key={attempt.result_id} className="border mb-2">
+                          <div className="bg-light p-2">
+                            <div className="d-flex justify-content-between align-items-start">
+                              <div style={{ flex: 1 }}>
+                                <div className="mb-1">
+                                  <span className="badge bg-dark me-1">#{index + 1}</span>
+                                  <strong>{attempt.exam_name}</strong>
+                                </div>
+                                <div className="d-flex flex-wrap gap-2">
+                                  <span className={`badge ${attempt.result_type === 'Regular' ? 'bg-primary' : 'bg-warning text-dark'}`}>
+                                    {attempt.result_type}
+                                  </span>
+                                  <span>
+                                    <strong>{attempt.total_marks_percentage ? attempt.total_marks_percentage.toFixed(2) + '%' : 'N/A'}</strong>
+                                  </span>
+                                  <span className={`badge ${attempt.overall_result === 'Pass' ? 'bg-success' : 'bg-danger'}`}>
+                                    {attempt.overall_result}
+                                  </span>
+                                  <span><strong>Grade: {attempt.overall_grade || 'N/A'}</strong></span>
+                                  <span className="text-muted">Pending: {attempt.pending_subjects}</span>
+                                  <span className="text-muted">{new Date(attempt.uploaded_at).toLocaleDateString()}</span>
+                                </div>
+                              </div>
+                              <button
+                                className="btn btn-sm btn-info py-0 ms-2"
+                                onClick={() => toggleExam(attempt.result_id)}
+                                style={{ fontSize: '0.75rem' }}
+                              >
+                                {expandedExam === attempt.result_id ? 'Hide' : 'View'}
+                              </button>
+                            </div>
+                          </div>
+
+                          {expandedExam === attempt.result_id && (
+                            <div className="p-2">
+                              {loading[attempt.result_id] ? (
+                                <div className="text-center py-2">
+                                  <div className="spinner-border spinner-border-sm" role="status"></div>
+                                </div>
+                              ) : subjectDetails[attempt.result_id] ? (
+                                <div className="table-responsive">
+                                  <table className="table table-sm table-bordered mb-0" style={{ fontSize: '0.8rem' }}>
+                                    <thead className="table-dark">
+                                      <tr>
+                                        <th>Code</th>
+                                        <th>Subject</th>
+                                        <th>Int</th>
+                                        <th>Ext</th>
+                                        <th>Total</th>
+                                        <th>Result</th>
+                                        <th>Grade</th>
+                                        <th>Att</th>
+                                        <th>Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {subjectDetails[attempt.result_id].map((subject) => (
+                                        <tr key={subject.id}>
+                                          <td>{subject.subject_code}</td>
+                                          <td>{subject.subject_name}</td>
+                                          <td className="text-center">{subject.internal_marks ?? '-'}</td>
+                                          <td className="text-center">{subject.external_marks ?? '-'}</td>
+                                          <td className="text-center"><strong>{subject.total_marks ?? '-'}</strong></td>
+                                          <td>
+                                            <span className={`badge ${
+                                              subject.subject_result === 'Pass' ? 'bg-success' :
+                                              subject.subject_result === 'Fail' ? 'bg-danger' : 'bg-secondary'
+                                            }`} style={{ fontSize: '0.7rem' }}>
+                                              {subject.subject_result}
+                                            </span>
+                                          </td>
+                                          <td className="text-center">{subject.grade || '-'}</td>
+                                          <td className="text-center">
+                                            <span className="badge bg-info" style={{ fontSize: '0.7rem' }}>{subject.attempts}</span>
+                                          </td>
+                                          <td>
+                                            <button
+                                              className="btn btn-sm btn-warning py-0 px-1"
+                                              onClick={() => handleEditClick(subject)}
+                                              style={{ fontSize: '0.7rem' }}
+                                            >
+                                              Edit
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              ) : (
+                                <div className="alert alert-warning py-1 mb-0" style={{ fontSize: '0.8rem' }}>
+                                  No subject details available
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-3 text-muted">
+            <p className="mb-0">No semester data available</p>
+          </div>
+        )}
+      </div>
+
+      {editingSubject && (
+        <UpdateMarksModal
+          subject={editingSubject}
+          onClose={() => setEditingSubject(null)}
+          onSuccess={handleUpdateSuccess}
+        />
+      )}
+    </div>
+  );
+};
+
+const UpdateMarksModal = ({ subject, onClose, onSuccess }) => {
+  const [formData, setFormData] = useState({
+    internal_marks: subject.internal_marks || 0,
+    external_marks: subject.external_marks || 0,
+    total_marks: subject.total_marks || 0,
+    subject_result: subject.subject_result || 'fail',
+    grade: subject.grade || ''
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => {
+      const updated = { ...prev, [name]: value };
+      
+      if (name === 'internal_marks' || name === 'external_marks') {
+        const internal = parseInt(name === 'internal_marks' ? value : prev.internal_marks) || 0;
+        const external = parseInt(name === 'external_marks' ? value : prev.external_marks) || 0;
+        updated.total_marks = internal + external;
+      }
+      
+      return updated;
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      await studentService.updateSubjectMarks(subject.id, formData);
+      alert('Marks updated successfully!');
+      onSuccess();
+    } catch (err) {
+      console.error('Error updating marks:', err);
+      setError(err.response?.data?.error || 'Failed to update marks');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header bg-primary text-white py-2">
+            <h6 className="modal-title mb-0">Update Subject Marks</h6>
+            <button type="button" className="btn-close btn-close-white" onClick={onClose}></button>
+          </div>
+          <form onSubmit={handleSubmit}>
+            <div className="modal-body p-3">
+              {error && (
+                <div className="alert alert-danger py-2" role="alert">
+                  {error}
+                </div>
+              )}
+              
+              <div className="mb-2">
+                <small className="text-muted">Subject:</small>
+                <div><strong>{subject.subject_code} - {subject.subject_name}</strong></div>
+                <small className="text-muted">Attempts:</small> <span className="badge bg-info">{subject.attempts}</span>
+              </div>
+
+              <div className="row g-2">
+                <div className="col-6">
+                  <label className="form-label mb-1"><small>Internal Marks</small></label>
+                  <input
+                    type="number"
+                    className="form-control form-control-sm"
+                    name="internal_marks"
+                    value={formData.internal_marks}
+                    onChange={handleChange}
+                    min="0"
+                    max="100"
+                  />
+                </div>
+                <div className="col-6">
+                  <label className="form-label mb-1"><small>External Marks</small></label>
+                  <input
+                    type="number"
+                    className="form-control form-control-sm"
+                    name="external_marks"
+                    value={formData.external_marks}
+                    onChange={handleChange}
+                    min="0"
+                    max="100"
+                  />
+                </div>
+              </div>
+
+              <div className="mb-2 mt-2">
+                <label className="form-label mb-1"><small>Total (Auto-calculated)</small></label>
+                <input
+                  type="number"
+                  className="form-control form-control-sm"
+                  name="total_marks"
+                  value={formData.total_marks}
+                  readOnly
+                  disabled
+                />
+              </div>
+
+              <div className="row g-2">
+                <div className="col-6">
+                  <label className="form-label mb-1"><small>Result</small></label>
+                  <select
+                    className="form-select form-select-sm"
+                    name="subject_result"
+                    value={formData.subject_result}
+                    onChange={handleChange}
+                  >
+                    <option value="pass">Pass</option>
+                    <option value="fail">Fail</option>
+                    <option value="absent">Absent</option>
+                  </select>
+                </div>
+                <div className="col-6">
+                  <label className="form-label mb-1"><small>Grade</small></label>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    name="grade"
+                    value={formData.grade}
+                    onChange={handleChange}
+                    maxLength="10"
+                  />
+                </div>
+              </div>
+
+              <div className="alert alert-info py-2 mt-2 mb-0">
+                <small>
+                  <strong>Note:</strong> Changing result from 'fail' to 'pass' will increment attempts.
+                </small>
+              </div>
+            </div>
+            <div className="modal-footer py-2">
+              <button type="button" className="btn btn-sm btn-secondary" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-sm btn-primary" disabled={submitting}>
+                {submitting ? 'Updating...' : 'Update'}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SemesterSummaryTable;

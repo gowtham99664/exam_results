@@ -2139,3 +2139,886 @@ WARNING 2026-02-09 10:16:15,432 basehttp "GET /api/results/ HTTP/1.1" 401 58
 INFO 2026-02-09 10:20:08,680 autoreload Watching for file changes with StatReloader
 WARNING 2026-02-09 10:20:20,355 log Unauthorized: /api/results/
 WARNING 2026-02-09 10:20:20,356 basehttp "GET /api/results/ HTTP/1.1" 401 58
+INFO 2026-02-09 10:22:59,154 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:22:59,522 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 10:22:59,734 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:22:59,833 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:22:59,836 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 10:22:59,837 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 10:23:00,004 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 10:23:00,229 basehttp "GET /api/statistics/? HTTP/1.1" 200 4521
+INFO 2026-02-09 10:23:00,242 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 10:23:00,358 basehttp "GET /api/statistics/? HTTP/1.1" 200 4521
+INFO 2026-02-09 10:23:02,313 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 0
+INFO 2026-02-09 10:23:02,575 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 4510
+INFO 2026-02-09 10:33:42,815 basehttp "OPTIONS /api/sample-template/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:33:43,145 basehttp "GET /api/sample-template/ HTTP/1.1" 200 5413
+INFO 2026-02-09 10:51:31,599 autoreload /root/spmvv-exam-results/backend/results/models.py changed, reloading.
+INFO 2026-02-09 10:51:31,896 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 10:51:38,221 autoreload /root/spmvv-exam-results/backend/results/models.py changed, reloading.
+INFO 2026-02-09 10:51:38,513 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 10:53:50,121 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 10:53:50,419 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 10:55:28,711 autoreload /root/spmvv-exam-results/backend/results/student_management.py changed, reloading.
+INFO 2026-02-09 10:55:28,981 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 10:56:19,705 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 10:56:33,870 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:56:34,400 views Admin admin deleted exam: B.Tech I year I Semester Regular and Supplementary Exam Results December 2025
+INFO 2026-02-09 10:56:34,401 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 153
+INFO 2026-02-09 10:56:34,664 basehttp "GET /api/exams/ HTTP/1.1" 200 311
+INFO 2026-02-09 10:56:38,038 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:56:40,154 basehttp "GET /api/exams/ HTTP/1.1" 200 311
+INFO 2026-02-09 10:56:40,255 basehttp "GET /api/exams/ HTTP/1.1" 200 311
+INFO 2026-02-09 10:56:40,279 basehttp "GET /api/statistics/? HTTP/1.1" 200 863
+INFO 2026-02-09 10:56:40,280 basehttp "GET /api/statistics/? HTTP/1.1" 200 863
+INFO 2026-02-09 10:56:45,048 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:56:45,307 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results January 2026
+INFO 2026-02-09 10:56:45,308 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 140
+INFO 2026-02-09 10:56:45,556 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 10:57:19,053 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 10:57:19,312 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 10:57:19,312 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 10:57:19,312 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 10:57:19,312 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 10:57:19,314 views DEBUG Upload Result - Created: True, Result ID: 77
+ERROR 2026-02-09 10:57:19,322 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 10:57:19,322 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 10:57:19,322 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 10:57:19,322 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 10:57:19,323 views DEBUG Upload Result - Created: True, Result ID: 78
+ERROR 2026-02-09 10:57:19,327 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 10:57:19,327 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 10:57:19,327 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 10:57:19,327 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 10:57:19,328 views DEBUG Upload Result - Created: True, Result ID: 79
+ERROR 2026-02-09 10:57:19,332 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 10:57:19,332 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 10:57:19,332 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 10:57:19,332 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 10:57:19,333 views DEBUG Upload Result - Created: True, Result ID: 80
+ERROR 2026-02-09 10:57:19,336 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 10:57:19,336 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 10:57:19,336 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 10:57:19,336 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 10:57:19,338 views DEBUG Upload Result - Created: True, Result ID: 81
+INFO 2026-02-09 10:57:19,342 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 10:57:19,598 basehttp "GET /api/exams/ HTTP/1.1" 200 324
+INFO 2026-02-09 10:57:49,033 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 10:57:49,314 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 10:57:49,314 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 10:57:49,315 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 10:57:49,315 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 10:57:49,317 views DEBUG Upload Result - Created: False, Result ID: 77
+INFO 2026-02-09 10:57:49,322 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 10:57:49,593 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:57:49,824 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 10:58:51,118 basehttp "OPTIONS /api/students/search/?q=TEST123 HTTP/1.1" 200 0
+INFO 2026-02-09 10:58:51,336 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 10:58:53,063 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:58:53,283 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 493
+INFO 2026-02-09 10:59:02,273 basehttp "OPTIONS /api/semesters/77/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 10:59:02,513 basehttp "GET /api/semesters/77/subjects/ HTTP/1.1" 200 426
+INFO 2026-02-09 11:10:28,648 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:10:29,015 views Admin admin deleted exam: B.Tech I year I Semester Regular and Supplementary Exam Results December 2025
+INFO 2026-02-09 11:10:29,015 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 153
+INFO 2026-02-09 11:10:29,279 basehttp "GET /api/exams/ HTTP/1.1" 200 311
+INFO 2026-02-09 11:10:32,728 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:10:32,966 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results January 2026
+INFO 2026-02-09 11:10:32,966 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 140
+INFO 2026-02-09 11:10:33,216 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 11:10:41,234 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:10:41,236 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 11:10:41,318 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:10:41,321 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 11:10:41,484 basehttp "GET /api/statistics/? HTTP/1.1" 200 379
+INFO 2026-02-09 11:10:41,548 basehttp "GET /api/statistics/? HTTP/1.1" 200 379
+INFO 2026-02-09 11:10:46,396 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 15
+INFO 2026-02-09 11:11:06,913 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 11:11:07,150 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 11:11:07,150 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 11:11:07,150 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:11:07,150 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:11:07,152 views DEBUG Upload Result - Created: True, Result ID: 88
+ERROR 2026-02-09 11:11:07,157 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 11:11:07,157 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:11:07,157 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:11:07,157 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 11:11:07,159 views DEBUG Upload Result - Created: True, Result ID: 89
+ERROR 2026-02-09 11:11:07,163 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 11:11:07,163 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:11:07,163 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:11:07,163 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 11:11:07,164 views DEBUG Upload Result - Created: True, Result ID: 90
+ERROR 2026-02-09 11:11:07,168 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 11:11:07,168 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:11:07,168 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:11:07,168 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:11:07,169 views DEBUG Upload Result - Created: True, Result ID: 91
+ERROR 2026-02-09 11:11:07,172 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 11:11:07,172 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:11:07,172 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:11:07,172 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:11:07,174 views DEBUG Upload Result - Created: True, Result ID: 92
+INFO 2026-02-09 11:11:07,181 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 11:11:07,424 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:11:07,640 basehttp "GET /api/exams/ HTTP/1.1" 200 324
+ERROR 2026-02-09 11:12:09,405 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 11:12:09,405 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 11:12:09,405 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:12:09,405 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:12:09,407 views DEBUG Upload Result - Created: False, Result ID: 88
+INFO 2026-02-09 11:12:09,413 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 11:12:09,661 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 11:26:53,103 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 11:26:53,389 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 11:27:07,684 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 11:27:07,935 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 11:27:35,493 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 11:27:35,788 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 11:30:17,124 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-09 11:30:32,097 log Unauthorized: /api/health/
+WARNING 2026-02-09 11:30:32,097 basehttp "GET /api/health/ HTTP/1.1" 401 58
+WARNING 2026-02-09 11:30:38,564 log Not Found: /api/
+WARNING 2026-02-09 11:30:38,565 basehttp "GET /api/ HTTP/1.1" 404 7301
+INFO 2026-02-09 11:33:19,089 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:19,526 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 11:33:19,873 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:19,970 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:19,970 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:19,971 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:20,122 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 11:33:20,309 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 11:33:20,323 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:33:20,347 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:33:24,907 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:25,237 views Admin admin deleted exam: B.Tech I year I Semester Regular and Supplementary Exam Results December 2025
+INFO 2026-02-09 11:33:25,238 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 153
+INFO 2026-02-09 11:33:25,499 basehttp "GET /api/exams/ HTTP/1.1" 200 311
+INFO 2026-02-09 11:33:28,472 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:33:28,707 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results January 2026
+INFO 2026-02-09 11:33:28,707 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 140
+INFO 2026-02-09 11:33:28,955 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 11:33:48,247 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 11:33:48,505 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 11:33:48,505 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 11:33:48,505 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:33:48,505 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:33:48,507 views DEBUG Upload Result - Created: True, Result ID: 93
+ERROR 2026-02-09 11:33:48,529 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 11:33:48,529 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:33:48,529 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:33:48,530 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 11:33:48,532 views DEBUG Upload Result - Created: True, Result ID: 94
+ERROR 2026-02-09 11:33:48,538 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 11:33:48,538 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:33:48,538 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:33:48,538 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 11:33:48,539 views DEBUG Upload Result - Created: True, Result ID: 95
+ERROR 2026-02-09 11:33:48,545 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 11:33:48,545 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:33:48,545 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:33:48,545 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:33:48,546 views DEBUG Upload Result - Created: True, Result ID: 96
+ERROR 2026-02-09 11:33:48,551 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 11:33:48,551 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:33:48,551 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:33:48,551 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:33:48,553 views DEBUG Upload Result - Created: True, Result ID: 97
+INFO 2026-02-09 11:33:48,563 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 11:33:48,798 basehttp "GET /api/exams/ HTTP/1.1" 200 324
+ERROR 2026-02-09 11:34:10,720 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 11:34:10,721 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 11:34:10,721 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:34:10,721 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:34:10,722 views DEBUG Upload Result - Created: False, Result ID: 93
+INFO 2026-02-09 11:34:10,770 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 11:34:11,021 basehttp "GET /api/exams/ HTTP/1.1" 200 608
+INFO 2026-02-09 11:39:08,334 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 11:39:08,648 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 11:40:09,872 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:40:09,873 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:40:10,240 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:40:10,257 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:40:18,403 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 11:40:39,345 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:40:39,354 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:40:39,389 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:40:39,399 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:42:45,716 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:42:45,717 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:42:45,721 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:42:45,732 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:42:46,117 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:42:46,118 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:42:46,157 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:42:46,160 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:44:59,387 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202015& HTTP/1.1" 200 0
+INFO 2026-02-09 11:44:59,759 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202015& HTTP/1.1" 200 4514
+INFO 2026-02-09 11:45:07,192 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202015/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:45:07,526 views Admin admin deleted exam: B.Tech I year I Semester Regular and Supplementary Exam Results December 2015
+INFO 2026-02-09 11:45:07,526 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202015/delete/ HTTP/1.1" 200 153
+INFO 2026-02-09 11:45:08,093 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:45:08,360 basehttp "GET /api/exams/ HTTP/1.1" 200 365
+INFO 2026-02-09 11:45:11,547 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 11:45:11,784 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results January 2026
+INFO 2026-02-09 11:45:11,784 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 140
+INFO 2026-02-09 11:45:12,430 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 11:45:29,872 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 11:45:30,134 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 11:45:30,134 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 11:45:30,134 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:45:30,134 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:45:30,136 views DEBUG Upload Result - Created: True, Result ID: 98
+ERROR 2026-02-09 11:45:30,153 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 11:45:30,153 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:45:30,153 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:45:30,153 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 11:45:30,155 views DEBUG Upload Result - Created: True, Result ID: 99
+ERROR 2026-02-09 11:45:30,161 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 11:45:30,161 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:45:30,161 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:45:30,161 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 11:45:30,164 views DEBUG Upload Result - Created: True, Result ID: 100
+ERROR 2026-02-09 11:45:30,170 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 11:45:30,170 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:45:30,170 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:45:30,170 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:45:30,173 views DEBUG Upload Result - Created: True, Result ID: 101
+ERROR 2026-02-09 11:45:30,179 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 11:45:30,180 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 11:45:30,180 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:45:30,180 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:45:30,181 views DEBUG Upload Result - Created: True, Result ID: 102
+INFO 2026-02-09 11:45:30,189 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 11:45:30,435 basehttp "GET /api/exams/ HTTP/1.1" 200 378
+ERROR 2026-02-09 11:45:51,500 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 11:45:51,500 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 11:45:51,500 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 11:45:51,500 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 11:45:51,502 views DEBUG Upload Result - Created: False, Result ID: 98
+INFO 2026-02-09 11:45:51,511 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 11:45:51,785 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:45:57,172 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 0
+INFO 2026-02-09 11:45:57,444 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 4514
+INFO 2026-02-09 11:56:10,311 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 11:56:10,321 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:56:10,585 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:56:19,598 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 11:56:40,192 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:56:40,212 basehttp "GET /api/exams/ HTTP/1.1" 200 716
+INFO 2026-02-09 11:56:40,235 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 11:56:40,235 basehttp "GET /api/statistics/? HTTP/1.1" 200 4524
+INFO 2026-02-09 12:03:02,052 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 0
+INFO 2026-02-09 12:03:02,411 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025& HTTP/1.1" 200 4514
+INFO 2026-02-09 12:03:10,092 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:03:10,375 views Admin admin deleted exam: B.Tech I year I Semester Regular and Supplementary Exam Results December 2025
+INFO 2026-02-09 12:03:10,376 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20December%202025/delete/ HTTP/1.1" 200 153
+INFO 2026-02-09 12:03:10,612 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:03:10,849 basehttp "GET /api/exams/ HTTP/1.1" 200 365
+INFO 2026-02-09 12:03:14,032 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:03:14,306 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results January 2026
+INFO 2026-02-09 12:03:14,306 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 140
+INFO 2026-02-09 12:03:14,558 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 12:04:12,161 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 12:04:12,454 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:04:41,041 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 12:04:41,330 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:04:56,627 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 12:04:56,898 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:05:13,352 autoreload /root/spmvv-exam-results/backend/results/views.py changed, reloading.
+INFO 2026-02-09 12:05:13,617 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:05:36,278 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:05:56,540 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 12:05:56,543 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 12:05:56,544 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 12:05:56,544 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 12:05:56,792 basehttp "GET /api/statistics/? HTTP/1.1" 200 379
+INFO 2026-02-09 12:05:56,969 basehttp "GET /api/statistics/? HTTP/1.1" 200 379
+WARNING 2026-02-09 12:08:57,822 log Not Found: /api/auth/login/
+WARNING 2026-02-09 12:08:57,822 basehttp "POST /api/auth/login/ HTTP/1.1" 404 7339
+WARNING 2026-02-09 12:09:05,581 log Not Found: /api/auth/login/
+WARNING 2026-02-09 12:09:05,582 basehttp "POST /api/auth/login/ HTTP/1.1" 404 7339
+INFO 2026-02-09 12:09:13,667 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:09:24,483 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-09 12:09:24,497 log Bad Request: /api/results/upload/
+WARNING 2026-02-09 12:09:24,498 basehttp "POST /api/results/upload/ HTTP/1.1" 400 35
+INFO 2026-02-09 12:09:32,719 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-09 12:09:32,742 log Bad Request: /api/results/upload/
+WARNING 2026-02-09 12:09:32,742 basehttp "POST /api/results/upload/ HTTP/1.1" 400 51
+INFO 2026-02-09 12:09:54,877 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-09 12:09:54,901 log Bad Request: /api/results/upload/
+WARNING 2026-02-09 12:09:54,901 basehttp "POST /api/results/upload/ HTTP/1.1" 400 1392
+WARNING 2026-02-09 12:10:30,569 log Unauthorized: /api/sample-template/
+WARNING 2026-02-09 12:10:30,569 basehttp "GET /api/sample-template/ HTTP/1.1" 401 58
+WARNING 2026-02-09 12:10:36,762 log Unauthorized: /api/sample-template/
+WARNING 2026-02-09 12:10:36,762 basehttp "GET /api/sample-template/ HTTP/1.1" 401 58
+INFO 2026-02-09 12:21:56,530 basehttp "POST /api/login/ HTTP/1.1" 200 894
+ERROR 2026-02-09 12:21:56,555 views DEBUG Upload Row - Roll: TEST123, Name: Student A
+ERROR 2026-02-09 12:21:56,555 views DEBUG Upload Row - Year: 3, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:21:56,555 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:21:56,555 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:21:56,557 views DEBUG Upload Result - Created: True, Result ID: 103
+ERROR 2026-02-09 12:21:56,565 views DEBUG Upload Row - Roll: TEST124, Name: Student B
+ERROR 2026-02-09 12:21:56,565 views DEBUG Upload Row - Year: 3, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:21:56,565 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:21:56,565 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:21:56,567 views DEBUG Upload Result - Created: True, Result ID: 104
+ERROR 2026-02-09 12:21:56,572 views DEBUG Upload Row - Roll: TEST125, Name: Student C
+ERROR 2026-02-09 12:21:56,573 views DEBUG Upload Row - Year: 3, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:21:56,573 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:21:56,573 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:21:56,574 views DEBUG Upload Result - Created: True, Result ID: 105
+ERROR 2026-02-09 12:21:56,578 views DEBUG Upload Row - Roll: TEST126, Name: Student D
+ERROR 2026-02-09 12:21:56,578 views DEBUG Upload Row - Year: 3, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:21:56,578 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:21:56,578 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:21:56,580 views DEBUG Upload Result - Created: True, Result ID: 106
+ERROR 2026-02-09 12:21:56,585 views DEBUG Upload Row - Roll: TEST127, Name: Student E
+ERROR 2026-02-09 12:21:56,585 views DEBUG Upload Row - Year: 3, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:21:56,585 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:21:56,585 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:21:56,587 views DEBUG Upload Result - Created: True, Result ID: 107
+INFO 2026-02-09 12:21:56,594 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 12:22:35,939 basehttp "POST /api/login/ HTTP/1.1" 200 894
+ERROR 2026-02-09 12:22:35,976 views DEBUG Upload Row - Roll: TEST123, Name: Student A
+ERROR 2026-02-09 12:22:35,976 views DEBUG Upload Row - Year: 3, Semester: 2, Result Type: regular
+ERROR 2026-02-09 12:22:35,976 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:22:35,976 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:22:35,978 views DEBUG Upload Result - Created: True, Result ID: 108
+ERROR 2026-02-09 12:22:35,982 views DEBUG Upload Row - Roll: TEST128, Name: Student F
+ERROR 2026-02-09 12:22:35,983 views DEBUG Upload Row - Year: 3, Semester: 2, Result Type: regular
+ERROR 2026-02-09 12:22:35,983 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:22:35,983 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:22:35,985 views DEBUG Upload Result - Created: True, Result ID: 109
+INFO 2026-02-09 12:22:36,001 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 12:23:19,695 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:23:19,717 basehttp "GET /api/exams/ HTTP/1.1" 200 692
+INFO 2026-02-09 12:28:48,561 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:28:48,963 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:28:49,279 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:28:49,396 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:28:49,398 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 12:28:49,398 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 12:28:49,533 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 12:28:49,724 basehttp "GET /api/statistics/? HTTP/1.1" 200 379
+INFO 2026-02-09 12:28:49,772 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+INFO 2026-02-09 12:28:49,989 basehttp "GET /api/statistics/? HTTP/1.1" 200 379
+INFO 2026-02-09 12:29:24,619 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 12:29:25,054 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 12:29:25,054 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 12:29:25,054 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:29:25,054 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:29:25,056 views DEBUG Upload Result - Created: True, Result ID: 110
+ERROR 2026-02-09 12:29:25,065 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 12:29:25,065 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:29:25,065 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:29:25,065 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:29:25,067 views DEBUG Upload Result - Created: True, Result ID: 111
+ERROR 2026-02-09 12:29:25,072 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 12:29:25,072 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:29:25,072 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:29:25,072 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 12:29:25,073 views DEBUG Upload Result - Created: True, Result ID: 112
+ERROR 2026-02-09 12:29:25,078 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 12:29:25,078 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:29:25,078 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:29:25,078 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:29:25,080 views DEBUG Upload Result - Created: True, Result ID: 113
+ERROR 2026-02-09 12:29:25,085 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 12:29:25,085 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:29:25,085 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:29:25,085 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:29:25,086 views DEBUG Upload Result - Created: True, Result ID: 114
+INFO 2026-02-09 12:29:25,093 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 12:29:25,366 basehttp "GET /api/exams/ HTTP/1.1" 200 359
+INFO 2026-02-09 12:29:27,556 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026& HTTP/1.1" 200 0
+INFO 2026-02-09 12:29:27,839 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026& HTTP/1.1" 200 4536
+ERROR 2026-02-09 12:29:49,923 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 12:29:49,924 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 12:29:49,924 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:29:49,924 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:29:49,926 views DEBUG Upload Result - Created: True, Result ID: 115
+INFO 2026-02-09 12:29:49,931 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 12:29:50,205 basehttp "GET /api/exams/ HTTP/1.1" 200 704
+INFO 2026-02-09 12:29:55,489 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20February%202026& HTTP/1.1" 200 0
+INFO 2026-02-09 12:29:55,845 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20February%202026& HTTP/1.1" 200 863
+INFO 2026-02-09 12:30:01,411 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026& HTTP/1.1" 200 4536
+INFO 2026-02-09 12:30:19,838 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026& HTTP/1.1" 200 4536
+INFO 2026-02-09 12:30:32,984 basehttp "OPTIONS /api/students/search/?q=TEST123 HTTP/1.1" 200 0
+INFO 2026-02-09 12:30:33,323 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 12:30:34,694 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:30:34,943 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 828
+INFO 2026-02-09 12:30:50,511 basehttp "OPTIONS /api/semesters/110/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:30:50,831 basehttp "GET /api/semesters/110/subjects/ HTTP/1.1" 200 968
+INFO 2026-02-09 12:30:55,479 basehttp "OPTIONS /api/semesters/115/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:30:55,831 basehttp "GET /api/semesters/115/subjects/ HTTP/1.1" 200 975
+INFO 2026-02-09 12:32:04,520 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20February%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:32:04,871 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results February 2026
+INFO 2026-02-09 12:32:04,872 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20February%202026/delete/ HTTP/1.1" 200 141
+INFO 2026-02-09 12:32:05,102 basehttp "GET /api/exams/ HTTP/1.1" 200 359
+ERROR 2026-02-09 12:32:55,667 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 12:32:55,667 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 12:32:55,667 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:32:55,667 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:32:55,669 views DEBUG Upload Result - Created: True, Result ID: 116
+INFO 2026-02-09 12:32:55,675 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 12:32:55,925 basehttp "GET /api/exams/ HTTP/1.1" 200 704
+INFO 2026-02-09 12:33:01,353 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026& HTTP/1.1" 200 4536
+INFO 2026-02-09 12:33:11,237 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 12:33:13,212 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 836
+INFO 2026-02-09 12:33:17,954 basehttp "OPTIONS /api/semesters/116/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:33:18,201 basehttp "GET /api/semesters/116/subjects/ HTTP/1.1" 200 975
+INFO 2026-02-09 12:40:31,638 autoreload /root/spmvv-exam-results/backend/results/student_management.py changed, reloading.
+INFO 2026-02-09 12:40:31,928 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:40:52,392 autoreload /root/spmvv-exam-results/backend/results/student_management.py changed, reloading.
+INFO 2026-02-09 12:40:52,683 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:45:01,905 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:49:15,381 basehttp "GET /api/exams/ HTTP/1.1" 200 704
+INFO 2026-02-09 12:49:15,411 basehttp "GET /api/statistics/? HTTP/1.1" 200 4536
+INFO 2026-02-09 12:49:15,640 basehttp "GET /api/exams/ HTTP/1.1" 200 704
+INFO 2026-02-09 12:49:15,662 basehttp "GET /api/statistics/? HTTP/1.1" 200 4536
+INFO 2026-02-09 12:49:29,317 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 12:49:31,498 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 836
+ERROR 2026-02-09 12:49:35,466 log Internal Server Error: /api/semesters/116/subjects/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 498, in dispatch
+    request = self.initialize_request(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 397, in initialize_request
+    return Request(
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/request.py", line 154, in __init__
+    assert isinstance(request, HttpRequest), (
+AssertionError: The `request` argument must be an instance of `django.http.HttpRequest`, not `rest_framework.request.Request`.
+ERROR 2026-02-09 12:49:35,637 basehttp "GET /api/semesters/116/subjects/ HTTP/1.1" 500 116550
+INFO 2026-02-09 12:49:53,008 views Admin admin deleted exam: B.Tech I year I Semester Supplementary Exam Results February 2026
+INFO 2026-02-09 12:49:53,009 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20February%202026/delete/ HTTP/1.1" 200 141
+INFO 2026-02-09 12:49:53,281 basehttp "GET /api/exams/ HTTP/1.1" 200 359
+INFO 2026-02-09 12:49:57,014 basehttp "OPTIONS /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 0
+INFO 2026-02-09 12:49:57,271 views Admin admin deleted exam: B.Tech I year I Semester Regular Exam Results January 2026
+INFO 2026-02-09 12:49:57,272 basehttp "DELETE /api/exams/B.Tech%20I%20year%20I%20Semester%20Regular%20Exam%20Results%20January%202026/delete/ HTTP/1.1" 200 134
+INFO 2026-02-09 12:49:57,517 basehttp "GET /api/exams/ HTTP/1.1" 200 22
+ERROR 2026-02-09 12:50:34,126 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 12:50:34,126 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 12:50:34,127 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:50:34,127 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:50:34,128 views DEBUG Upload Result - Created: True, Result ID: 117
+ERROR 2026-02-09 12:50:34,136 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 12:50:34,136 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:50:34,136 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:50:34,136 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 12:50:34,137 views DEBUG Upload Result - Created: True, Result ID: 118
+ERROR 2026-02-09 12:50:34,142 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 12:50:34,142 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:50:34,143 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:50:34,143 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 12:50:34,144 views DEBUG Upload Result - Created: True, Result ID: 119
+ERROR 2026-02-09 12:50:34,149 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 12:50:34,149 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:50:34,150 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:50:34,150 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:50:34,151 views DEBUG Upload Result - Created: True, Result ID: 120
+ERROR 2026-02-09 12:50:34,158 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 12:50:34,158 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: regular
+ERROR 2026-02-09 12:50:34,158 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:50:34,158 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:50:34,159 views DEBUG Upload Result - Created: True, Result ID: 121
+INFO 2026-02-09 12:50:34,165 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 12:50:34,404 basehttp "GET /api/exams/ HTTP/1.1" 200 377
+ERROR 2026-02-09 12:50:58,093 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 12:50:58,093 views DEBUG Upload Row - Year: 1, Semester: 1, Result Type: supplementary
+ERROR 2026-02-09 12:50:58,093 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 12:50:58,093 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 12:50:58,095 views DEBUG Upload Result - Created: True, Result ID: 122
+INFO 2026-02-09 12:50:58,101 basehttp "POST /api/results/upload/ HTTP/1.1" 201 108
+INFO 2026-02-09 12:50:58,361 basehttp "GET /api/exams/ HTTP/1.1" 200 722
+INFO 2026-02-09 12:51:10,074 basehttp "OPTIONS /api/students/search/?q=Test123 HTTP/1.1" 200 0
+INFO 2026-02-09 12:51:10,338 basehttp "GET /api/students/search/?q=Test123 HTTP/1.1" 200 132
+INFO 2026-02-09 12:51:12,391 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 854
+INFO 2026-02-09 12:51:15,414 basehttp "OPTIONS /api/semesters/122/subjects/ HTTP/1.1" 200 0
+ERROR 2026-02-09 12:51:15,666 log Internal Server Error: /api/semesters/122/subjects/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 498, in dispatch
+    request = self.initialize_request(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 397, in initialize_request
+    return Request(
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/request.py", line 154, in __init__
+    assert isinstance(request, HttpRequest), (
+AssertionError: The `request` argument must be an instance of `django.http.HttpRequest`, not `rest_framework.request.Request`.
+ERROR 2026-02-09 12:51:15,666 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 500 116550
+INFO 2026-02-09 12:51:48,589 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Supplementary%20Exam%20Results%20February%202026& HTTP/1.1" 200 867
+INFO 2026-02-09 12:51:53,294 basehttp "OPTIONS /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20January%202026& HTTP/1.1" 200 0
+INFO 2026-02-09 12:51:53,676 basehttp "GET /api/statistics/?exam_name=B.Tech%20I%20year%20I%20Semester%20Regular%20and%20Supplementary%20Exam%20Results%20January%202026& HTTP/1.1" 200 4536
+INFO 2026-02-09 12:52:37,889 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:52:37,931 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 854
+INFO 2026-02-09 12:52:48,366 basehttp "POST /api/login/ HTTP/1.1" 200 894
+ERROR 2026-02-09 12:52:48,397 log Internal Server Error: /api/semesters/117/subjects/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 498, in dispatch
+    request = self.initialize_request(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 397, in initialize_request
+    return Request(
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/request.py", line 154, in __init__
+    assert isinstance(request, HttpRequest), (
+AssertionError: The `request` argument must be an instance of `django.http.HttpRequest`, not `rest_framework.request.Request`.
+ERROR 2026-02-09 12:52:48,398 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 500 115545
+INFO 2026-02-09 12:53:00,413 basehttp "POST /api/login/ HTTP/1.1" 200 894
+ERROR 2026-02-09 12:53:00,447 log Internal Server Error: /api/semesters/117/subjects/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.9/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/django/views/generic/base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 498, in dispatch
+    request = self.initialize_request(request, *args, **kwargs)
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/views.py", line 397, in initialize_request
+    return Request(
+  File "/usr/local/lib/python3.9/site-packages/rest_framework/request.py", line 154, in __init__
+    assert isinstance(request, HttpRequest), (
+AssertionError: The `request` argument must be an instance of `django.http.HttpRequest`, not `rest_framework.request.Request`.
+ERROR 2026-02-09 12:53:00,448 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 500 115545
+INFO 2026-02-09 12:54:23,511 autoreload /root/spmvv-exam-results/backend/results/student_management.py changed, reloading.
+INFO 2026-02-09 12:54:23,833 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:54:49,601 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 12:55:08,331 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:55:17,319 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:55:27,028 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:55:27,046 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 12:56:22,665 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:56:22,680 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 12:56:31,644 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:56:31,661 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 12:56:40,573 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 12:56:40,591 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 12:59:40,095 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 13:12:56,424 basehttp "GET /api/exams/ HTTP/1.1" 200 722
+INFO 2026-02-09 13:12:56,450 basehttp "GET /api/statistics/? HTTP/1.1" 200 4536
+INFO 2026-02-09 13:12:56,668 basehttp "GET /api/statistics/? HTTP/1.1" 200 4536
+INFO 2026-02-09 13:12:56,684 basehttp "GET /api/exams/ HTTP/1.1" 200 722
+INFO 2026-02-09 13:13:25,711 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:26,117 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:13:26,400 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:26,494 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:26,496 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:26,499 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:26,648 basehttp "GET /api/exams/ HTTP/1.1" 200 722
+INFO 2026-02-09 13:13:26,855 basehttp "GET /api/exams/ HTTP/1.1" 200 722
+INFO 2026-02-09 13:13:26,903 basehttp "GET /api/statistics/? HTTP/1.1" 200 4536
+INFO 2026-02-09 13:13:26,905 basehttp "GET /api/statistics/? HTTP/1.1" 200 4536
+INFO 2026-02-09 13:13:33,695 basehttp "OPTIONS /api/students/search/?q=TEST123 HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:33,938 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 13:13:34,996 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:35,289 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 854
+INFO 2026-02-09 13:13:46,774 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:47,024 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 13:13:50,034 basehttp "OPTIONS /api/semesters/122/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:13:50,299 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 13:13:58,052 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:14:06,612 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-09 13:14:06,629 log Not Found: /api/student-history/TEST123/
+WARNING 2026-02-09 13:14:06,629 basehttp "GET /api/student-history/TEST123/ HTTP/1.1" 404 7377
+INFO 2026-02-09 13:14:14,720 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-09 13:14:14,739 log Not Found: /api/student-history/TEST123/
+WARNING 2026-02-09 13:14:14,739 basehttp "GET /api/student-history/TEST123/ HTTP/1.1" 404 7377
+INFO 2026-02-09 13:14:24,271 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:14:24,290 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 854
+INFO 2026-02-09 13:14:42,143 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:14:42,164 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 13:14:51,949 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:14:51,968 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 13:15:12,174 basehttp "OPTIONS /api/results/upload/ HTTP/1.1" 200 0
+ERROR 2026-02-09 13:15:12,417 views DEBUG Upload Row - Roll: TEST123, Name: John Doe
+ERROR 2026-02-09 13:15:12,417 views DEBUG Upload Row - Year: 1, Semester: 2, Result Type: supplementary
+ERROR 2026-02-09 13:15:12,417 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 13:15:12,417 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 13:15:12,419 views DEBUG Upload Result - Created: True, Result ID: 123
+ERROR 2026-02-09 13:15:12,440 views DEBUG Upload Row - Roll: TEST124, Name: Jane Smith
+ERROR 2026-02-09 13:15:12,440 views DEBUG Upload Row - Year: 1, Semester: 2, Result Type: regular
+ERROR 2026-02-09 13:15:12,440 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 13:15:12,440 views DEBUG Upload Row - Branch: cse, Course: btech
+ERROR 2026-02-09 13:15:12,442 views DEBUG Upload Result - Created: True, Result ID: 124
+ERROR 2026-02-09 13:15:12,447 views DEBUG Upload Row - Roll: TEST125, Name: Bob Johnson
+ERROR 2026-02-09 13:15:12,447 views DEBUG Upload Row - Year: 1, Semester: 2, Result Type: regular
+ERROR 2026-02-09 13:15:12,447 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 13:15:12,447 views DEBUG Upload Row - Branch: mech, Course: btech
+ERROR 2026-02-09 13:15:12,448 views DEBUG Upload Result - Created: True, Result ID: 125
+ERROR 2026-02-09 13:15:12,453 views DEBUG Upload Row - Roll: TEST126, Name: John reg
+ERROR 2026-02-09 13:15:12,453 views DEBUG Upload Row - Year: 1, Semester: 2, Result Type: regular
+ERROR 2026-02-09 13:15:12,453 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 13:15:12,453 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 13:15:12,455 views DEBUG Upload Result - Created: True, Result ID: 126
+ERROR 2026-02-09 13:15:12,459 views DEBUG Upload Row - Roll: TEST127, Name: John reg fail
+ERROR 2026-02-09 13:15:12,459 views DEBUG Upload Row - Year: 1, Semester: 2, Result Type: regular
+ERROR 2026-02-09 13:15:12,459 views DEBUG Upload Row - Student User: None (ID: None)
+ERROR 2026-02-09 13:15:12,459 views DEBUG Upload Row - Branch: eee, Course: btech
+ERROR 2026-02-09 13:15:12,461 views DEBUG Upload Result - Created: True, Result ID: 127
+INFO 2026-02-09 13:15:12,467 basehttp "POST /api/results/upload/ HTTP/1.1" 201 121
+INFO 2026-02-09 13:15:12,748 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 13:15:19,897 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 13:15:21,661 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 13:22:43,814 basehttp "OPTIONS /api/students/search/?q=TEST125 HTTP/1.1" 200 0
+INFO 2026-02-09 13:22:44,178 basehttp "GET /api/students/search/?q=TEST125 HTTP/1.1" 200 121
+INFO 2026-02-09 13:22:45,334 basehttp "OPTIONS /api/students/TEST125/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:22:45,608 basehttp "GET /api/students/TEST125/history/ HTTP/1.1" 200 834
+INFO 2026-02-09 13:23:09,714 basehttp "OPTIONS /api/semesters/119/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:23:09,960 basehttp "GET /api/semesters/119/subjects/ HTTP/1.1" 200 968
+INFO 2026-02-09 13:23:29,799 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 13:23:31,437 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 13:23:36,602 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 13:23:41,018 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 13:26:45,802 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-09 13:27:00,615 log Unauthorized: /api/health/
+WARNING 2026-02-09 13:27:00,615 basehttp "GET /api/health/ HTTP/1.1" 401 58
+INFO 2026-02-09 13:27:21,283 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:30:37,980 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:38,408 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 13:30:38,673 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:38,776 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:38,776 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:38,779 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:38,950 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 13:30:39,186 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 13:30:39,235 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 13:30:39,238 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 13:30:46,345 basehttp "OPTIONS /api/students/search/?q=TEST123 HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:46,601 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 13:30:48,933 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:30:49,210 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 13:31:20,435 basehttp "OPTIONS /api/semesters/122/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:31:20,698 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 13:31:22,899 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 13:31:23,158 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 14:02:33,116 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:33,513 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 14:02:33,754 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:33,857 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:33,857 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:33,857 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:34,029 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 14:02:34,263 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 14:02:34,267 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 14:02:34,421 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 14:02:42,914 basehttp "OPTIONS /api/students/search/?q=TEST123 HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:43,179 basehttp "GET /api/students/search/?q=TEST123 HTTP/1.1" 200 132
+INFO 2026-02-09 14:02:44,914 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:02:45,181 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 14:03:00,334 basehttp "OPTIONS /api/semesters/122/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:03:00,573 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 14:03:07,934 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:03:08,200 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 14:07:31,738 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 14:07:37,965 basehttp "OPTIONS /api/semesters/123/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 14:07:38,206 basehttp "GET /api/semesters/123/subjects/ HTTP/1.1" 200 956
+INFO 2026-02-09 14:08:18,067 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 14:10:18,070 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 14:10:18,095 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 14:10:18,294 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 14:10:18,933 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 14:20:00,791 basehttp "OPTIONS /api/students/search/?q=test123 HTTP/1.1" 200 0
+INFO 2026-02-09 14:20:01,143 basehttp "GET /api/students/search/?q=test123 HTTP/1.1" 200 132
+INFO 2026-02-09 14:20:02,779 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 14:20:26,794 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+INFO 2026-02-09 14:20:34,098 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 14:34:26,246 basehttp "OPTIONS /api/students/search/?q=Test123 HTTP/1.1" 200 0
+INFO 2026-02-09 14:34:26,534 basehttp "GET /api/students/search/?q=Test123 HTTP/1.1" 200 132
+INFO 2026-02-09 14:34:28,974 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 14:34:44,268 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 14:35:06,229 basehttp "GET /api/semesters/122/subjects/ HTTP/1.1" 200 427
+WARNING 2026-02-09 15:06:45,266 log Unauthorized: /api/semesters/123/subjects/
+WARNING 2026-02-09 15:06:45,266 basehttp "GET /api/semesters/123/subjects/ HTTP/1.1" 401 172
+INFO 2026-02-09 15:06:45,639 basehttp "OPTIONS /api/auth/refresh HTTP/1.1" 200 0
+WARNING 2026-02-09 15:06:45,904 log Not Found: /api/auth/refresh
+WARNING 2026-02-09 15:06:45,905 basehttp "POST /api/auth/refresh HTTP/1.1" 404 7342
+INFO 2026-02-09 15:07:08,308 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 15:07:08,571 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 15:07:08,706 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 15:07:08,862 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 15:07:08,894 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 15:07:16,097 basehttp "GET /api/students/search/?q=test123 HTTP/1.1" 200 132
+INFO 2026-02-09 15:07:17,946 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 15:45:25,944 basehttp "OPTIONS /api/register/ HTTP/1.1" 200 0
+INFO 2026-02-09 15:45:26,332 basehttp "POST /api/register/ HTTP/1.1" 201 61
+WARNING 2026-02-09 15:45:46,891 log Unauthorized: /api/login/
+WARNING 2026-02-09 15:45:46,891 basehttp "POST /api/login/ HTTP/1.1" 401 101
+WARNING 2026-02-09 15:45:51,480 log Unauthorized: /api/login/
+WARNING 2026-02-09 15:45:51,480 basehttp "POST /api/login/ HTTP/1.1" 401 101
+INFO 2026-02-09 15:45:59,688 basehttp "POST /api/login/ HTTP/1.1" 200 930
+INFO 2026-02-09 15:45:59,938 basehttp "OPTIONS /api/notifications/unread-count HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,040 basehttp "OPTIONS /api/notifications HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,040 basehttp "OPTIONS /api/results/ HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,045 basehttp "OPTIONS /api/results/ HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,045 basehttp "OPTIONS /api/notifications HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,047 basehttp "OPTIONS /api/notifications/unread-count HTTP/1.1" 200 0
+WARNING 2026-02-09 15:46:00,185 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:46:00,185 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+INFO 2026-02-09 15:46:00,372 basehttp "GET /api/notifications HTTP/1.1" 301 0
+INFO 2026-02-09 15:46:00,379 basehttp "GET /api/results/ HTTP/1.1" 200 24
+WARNING 2026-02-09 15:46:00,438 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:46:00,438 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+INFO 2026-02-09 15:46:00,463 basehttp "OPTIONS /api/notifications/ HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,463 basehttp "OPTIONS /api/notifications/ HTTP/1.1" 200 0
+INFO 2026-02-09 15:46:00,624 basehttp "GET /api/results/ HTTP/1.1" 200 24
+INFO 2026-02-09 15:46:00,707 basehttp "GET /api/notifications/ HTTP/1.1" 200 47
+INFO 2026-02-09 15:46:00,947 basehttp "GET /api/notifications/ HTTP/1.1" 200 47
+WARNING 2026-02-09 15:47:00,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:47:00,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:48:01,324 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:48:01,325 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:49:00,107 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:49:00,107 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:50:00,076 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:50:00,076 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:51:00,004 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:51:00,005 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+INFO 2026-02-09 15:51:45,794 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 15:51:45,922 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 15:51:46,033 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 15:51:46,077 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 15:51:56,201 basehttp "GET /api/students/search/?q=test123 HTTP/1.1" 200 132
+INFO 2026-02-09 15:51:57,967 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+WARNING 2026-02-09 15:52:00,001 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:52:00,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:53:26,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:53:26,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+INFO 2026-02-09 15:54:21,848 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+WARNING 2026-02-09 15:54:27,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:54:27,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:55:28,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:55:28,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:56:28,982 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:56:28,982 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:57:30,001 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:57:30,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:58:31,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:58:31,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 15:59:31,984 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 15:59:31,984 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:00:32,003 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:00:32,003 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:01:32,010 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:01:32,010 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:02:31,982 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:02:31,982 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:03:32,003 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:03:32,003 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:04:31,984 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:04:31,984 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:05:32,004 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:05:32,004 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:06:32,301 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:06:32,302 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:07:32,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:07:32,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:08:31,997 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:08:31,997 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:09:32,022 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:09:32,023 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:10:32,048 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:10:32,048 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:11:32,001 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:11:32,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:12:32,002 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:12:32,002 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:13:32,020 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:13:32,021 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+WARNING 2026-02-09 16:14:32,047 log Not Found: /api/notifications/unread-count
+WARNING 2026-02-09 16:14:32,047 basehttp "GET /api/notifications/unread-count HTTP/1.1" 404 7383
+INFO 2026-02-09 16:14:33,026 basehttp - Broken pipe from ('10.189.165.212', 63832)
+INFO 2026-02-09 19:46:28,627 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:28,983 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-09 19:46:29,226 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:29,308 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:29,309 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:29,309 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:29,461 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 19:46:29,631 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 19:46:29,687 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 19:46:29,750 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 19:46:36,025 basehttp "OPTIONS /api/students/search/?q=test123 HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:36,250 basehttp "GET /api/students/search/?q=test123 HTTP/1.1" 200 132
+INFO 2026-02-09 19:46:38,245 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 19:46:38,487 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 19:47:34,249 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 19:47:34,515 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972

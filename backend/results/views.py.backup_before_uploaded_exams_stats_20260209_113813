@@ -353,13 +353,13 @@ def upload_results(request):
 
                 result, created = Result.objects.update_or_create(
                     roll_number=roll_number,
-                    exam_name=exam_name,
+                    year=year,
+                    semester=semester,
+                    result_type=student_result_type,
                     defaults={
                         'student': student_user,  # Update student FK (can be None)
                         'student_name': str(row['Student Name']).strip(),
-                        'year': year,
-                        'semester': semester,
-                        'result_type': student_result_type,
+                        'exam_name': exam_name,
                         'exam_held_date': exam_date_obj,
                         'course': course_lower,
                         'branch': student_branch,  # Branch from Excel
@@ -583,27 +583,22 @@ def health_check(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_uploaded_exams(request):
-    """Get list of uploaded exams (grouped by exam_name) with isolated statistics - Admin only"""
+    """Get list of uploaded exams (grouped by exam_name) - Admin only"""
     if request.user.role != "admin":
         return Response({"error": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
     
-    from django.db.models import Count, Max, Min, F, Q
+    from django.db.models import Count, Max, Min, F
     
     # Get unique exam names first
     exam_names = Result.objects.values_list('exam_name', flat=True).distinct()
     
     exams_list = []
     for exam_name in exam_names:
-        # Get stats for this exam - ISOLATED by exam_name
+        # Get stats for this exam
         exam_results = Result.objects.filter(exam_name=exam_name)
         
         # Count unique students (by roll_number)
         student_count = exam_results.values('roll_number').distinct().count()
-        
-        # Calculate pass/fail statistics - ISOLATED per exam
-        pass_count = exam_results.filter(overall_result__iexact='pass').count()
-        fail_count = exam_results.filter(overall_result__iexact='fail').count()
-        pass_percentage = round((pass_count / student_count * 100), 2) if student_count > 0 else 0
         
         # Get other info from first result
         first_result = exam_results.first()
@@ -618,9 +613,6 @@ def get_uploaded_exams(request):
                 'uploaded_at': first_result.uploaded_at,
                 'uploaded_by__username': first_result.uploaded_by.username if first_result.uploaded_by else 'Unknown',
                 'student_count': student_count,
-                'pass_count': pass_count,
-                'fail_count': fail_count,
-                'pass_percentage': pass_percentage,
                 'latest_upload': exam_results.aggregate(Max('uploaded_at'))['uploaded_at__max']
             })
     
@@ -631,7 +623,6 @@ def get_uploaded_exams(request):
         "count": len(exams_list),
         "exams": exams_list
     })
-
 
 
 @api_view(["GET"])

@@ -353,13 +353,13 @@ def upload_results(request):
 
                 result, created = Result.objects.update_or_create(
                     roll_number=roll_number,
-                    exam_name=exam_name,
+                    year=year,
+                    semester=semester,
+                    result_type=student_result_type,
                     defaults={
                         'student': student_user,  # Update student FK (can be None)
                         'student_name': str(row['Student Name']).strip(),
-                        'year': year,
-                        'semester': semester,
-                        'result_type': student_result_type,
+                        'exam_name': exam_name,
                         'exam_held_date': exam_date_obj,
                         'course': course_lower,
                         'branch': student_branch,  # Branch from Excel

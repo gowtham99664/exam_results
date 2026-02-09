@@ -34,41 +34,49 @@ def search_student(request):
         logger.error(f"Error searching students: {str(e)}")
         return Response({"error": str(e)}, status=500)
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_student_history(request, roll_number):
-    """Get complete history of results for a student. Each exam is shown separately."""
-    if request.user.role != 'admin':
-        return Response({'error': 'Admin only'}, status=403)
-    
+    if request.user.role != "admin":
+        return Response({"error": "Admin only"}, status=403)
     try:
-        results = Result.objects.filter(
-            roll_number=roll_number
-        ).select_related('student').prefetch_related('subjects').order_by(
-            'year', 'semester', 'uploaded_at'
-        )
-        
+        results = Result.objects.filter(roll_number=roll_number).select_related("student").prefetch_related("subjects").order_by("year", "semester", "result_type", "-uploaded_at")
         if not results.exists():
-            return Response({'error': 'No results found for this roll number'}, status=404)
-        
+            return Response({"error": "No results found for this roll number"}, status=404)
         first_result = results.first()
-        student_info = {
-            'roll_number': roll_number,
-            'student_name': first_result.student_name,
-            'course': first_result.get_course_display(),
-            'branch': first_result.get_branch_display()
-        }
+        student_info = {"roll_number": roll_number, "student_name": first_result.student_name, "course": first_result.get_course_display(), "branch": first_result.get_branch_display()}
         
-        # Count exams per year/semester for attempt count
-        exam_counts = {}
+        # Group results by (year, semester) and consolidate
+        semester_data = {}
         for result in results:
             key = (result.year, result.semester)
-            exam_counts[key] = exam_counts.get(key, 0) + 1
+            if key not in semester_data:
+                semester_data[key] = []
+            semester_data[key].append(result)
         
         semester_summary = []
-        for result in results:
-            subjects = result.subjects.all()
-            total_subjects = subjects.count()
+        for (year, semester), result_list in sorted(semester_data.items()):
+            # Consolidate subjects from all results (regular + supplementary)
+            # Keep the latest attempt for each subject (by subject_code)
+            consolidated_subjects = {}
+            latest_result = result_list[0]  # Most recent result for display
+            all_exam_names = []
+            latest_completion_date = None
+            
+            for result in reversed(result_list):  # Process oldest to newest
+                all_exam_names.append(result.exam_name)
+                if result.completion_date:
+                    latest_completion_date = result.completion_date
+                    
+                for subject in result.subjects.all():
+                    subject_code = subject.subject_code
+                    # If subject doesn't exist or this one has more attempts, use this one
+                    if subject_code not in consolidated_subjects or subject.attempts > consolidated_subjects[subject_code].attempts:
+                        consolidated_subjects[subject_code] = subject
+            
+            # Calculate totals from consolidated subjects
+            subjects = list(consolidated_subjects.values())
+            total_subjects = len(subjects)
             total_marks = 0
             max_marks = 0
             pending_subjects = 0
@@ -77,72 +85,87 @@ def get_student_history(request, roll_number):
                 if subject.total_marks:
                     total_marks += subject.total_marks
                     max_marks += 100
-                if subject.subject_result.lower() == 'fail':
+                if subject.subject_result.lower() == "fail":
                     pending_subjects += 1
             
             percentage = round((total_marks / max_marks * 100), 2) if max_marks > 0 else 0
-            overall_result = result.overall_result if result.overall_result else ('Pass' if pending_subjects == 0 else 'Fail')
-            key = (result.year, result.semester)
-            num_attempts = exam_counts[key]
-            completion_date_str = result.completion_date.strftime('%Y-%m-%d') if result.completion_date else None
+            overall_result = "Pass" if pending_subjects == 0 else "Fail"
+            max_attempts = max([s.attempts for s in subjects]) if subjects else 1
+            completion_date_str = latest_completion_date.strftime("%Y-%m-%d") if latest_completion_date else None
+            
+            # Create consolidated exam name
+            if len(result_list) > 1:
+                exam_name = f"{latest_result.exam_name} (Consolidated)"
+            else:
+                exam_name = latest_result.exam_name
             
             semester_summary.append({
-                'year': result.year,
-                'semester': result.semester,
-                'result_id': result.id,
-                'exam_name': result.exam_name,
-                'result_type': result.get_result_type_display(),
-                'total_marks_percentage': percentage,
-                'overall_result': overall_result,
-                'overall_grade': result.overall_grade,
-                'total_subjects': total_subjects,
-                'pending_subjects': pending_subjects,
-                'num_attempts': num_attempts,
-                'completion_date': completion_date_str,
-                'uploaded_at': result.uploaded_at.strftime('%Y-%m-%d %H:%M:%S')
+                "year": year, 
+                "semester": semester, 
+                "result_id": latest_result.id, 
+                "exam_name": exam_name, 
+                "result_type": "Consolidated" if len(result_list) > 1 else latest_result.get_result_type_display(), 
+                "total_marks_percentage": percentage, 
+                "overall_result": overall_result, 
+                "overall_grade": latest_result.overall_grade, 
+                "total_subjects": total_subjects, 
+                "pending_subjects": pending_subjects, 
+                "max_attempts": max_attempts, 
+                "completion_date": completion_date_str, 
+                "uploaded_at": latest_result.uploaded_at.strftime("%Y-%m-%d %H:%M:%S"),
+                "result_count": len(result_list)  # Number of exams consolidated
             })
-        
-        return Response({'student_info': student_info, 'semester_summary': semester_summary})
+        return Response({"student_info": student_info, "semester_summary": semester_summary})
     except Exception as e:
-        logger.error(f'Error getting student history for {roll_number}: {str(e)}')
-        return Response({'error': str(e)}, status=500)
-
-
+        logger.error(f"Error getting student history for {roll_number}: {str(e)}")
+        return Response({"error": str(e)}, status=500)
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_semester_subjects(request, result_id):
-    """Get subjects for a SPECIFIC exam (result_id). Each exam is independent."""  
     if request.user.role != "admin":
         return Response({"error": "Admin only"}, status=403)
     try:
         result = Result.objects.get(id=result_id)
         
-        # Get subjects for THIS specific exam only (no consolidation)
-        subjects = result.subjects.all().order_by("subject_code")
+        # Get all results for this student/year/semester (to consolidate subjects)
+        all_results = Result.objects.filter(
+            roll_number=result.roll_number,
+            year=result.year,
+            semester=result.semester
+        ).prefetch_related("subjects").order_by("result_type", "-uploaded_at")
         
+        # Consolidate subjects (keep latest attempt for each subject_code)
+        consolidated_subjects = {}
+        for res in reversed(list(all_results)):  # Process oldest to newest
+            for subject in res.subjects.all():
+                subject_code = subject.subject_code
+                if subject_code not in consolidated_subjects or subject.attempts > consolidated_subjects[subject_code].attempts:
+                    consolidated_subjects[subject_code] = subject
+        
+        subjects = sorted(consolidated_subjects.values(), key=lambda s: s.subject_code)
         subject_details = []
         for subject in subjects:
             subject_details.append({
-                "id": subject.id,
-                "subject_code": subject.subject_code,
-                "subject_name": subject.subject_name,
-                "internal_marks": subject.internal_marks,
-                "external_marks": subject.external_marks,
-                "total_marks": subject.total_marks,
-                "subject_result": subject.get_subject_result_display(),
-                "grade": subject.grade,
+                "id": subject.id, 
+                "subject_code": subject.subject_code, 
+                "subject_name": subject.subject_name, 
+                "internal_marks": subject.internal_marks, 
+                "external_marks": subject.external_marks, 
+                "total_marks": subject.total_marks, 
+                "subject_result": subject.get_subject_result_display(), 
+                "grade": subject.grade, 
                 "attempts": subject.attempts
             })
         
         semester_info = {
-            "roll_number": result.roll_number,
-            "student_name": result.student_name,
-            "year": result.year,
-            "semester": result.semester,
-            "exam_name": result.exam_name,
-            "result_type": result.get_result_type_display(),
-            "overall_result": result.overall_result,
+            "roll_number": result.roll_number, 
+            "student_name": result.student_name, 
+            "year": result.year, 
+            "semester": result.semester, 
+            "exam_name": result.exam_name + (" (Consolidated)" if all_results.count() > 1 else ""), 
+            "result_type": "Consolidated" if all_results.count() > 1 else result.get_result_type_display(), 
+            "overall_result": result.overall_result, 
             "overall_grade": result.overall_grade
         }
         return Response({"semester_info": semester_info, "subjects": subject_details})

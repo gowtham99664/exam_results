@@ -112,37 +112,49 @@ def get_student_history(request, roll_number):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_semester_subjects(request, result_id):
-    """Get subjects for a SPECIFIC exam (result_id). Each exam is independent."""  
     if request.user.role != "admin":
         return Response({"error": "Admin only"}, status=403)
     try:
         result = Result.objects.get(id=result_id)
         
-        # Get subjects for THIS specific exam only (no consolidation)
-        subjects = result.subjects.all().order_by("subject_code")
+        # Get all results for this student/year/semester (to consolidate subjects)
+        all_results = Result.objects.filter(
+            roll_number=result.roll_number,
+            year=result.year,
+            semester=result.semester
+        ).prefetch_related("subjects").order_by("result_type", "-uploaded_at")
         
+        # Consolidate subjects (keep latest attempt for each subject_code)
+        consolidated_subjects = {}
+        for res in reversed(list(all_results)):  # Process oldest to newest
+            for subject in res.subjects.all():
+                subject_code = subject.subject_code
+                if subject_code not in consolidated_subjects or subject.attempts > consolidated_subjects[subject_code].attempts:
+                    consolidated_subjects[subject_code] = subject
+        
+        subjects = sorted(consolidated_subjects.values(), key=lambda s: s.subject_code)
         subject_details = []
         for subject in subjects:
             subject_details.append({
-                "id": subject.id,
-                "subject_code": subject.subject_code,
-                "subject_name": subject.subject_name,
-                "internal_marks": subject.internal_marks,
-                "external_marks": subject.external_marks,
-                "total_marks": subject.total_marks,
-                "subject_result": subject.get_subject_result_display(),
-                "grade": subject.grade,
+                "id": subject.id, 
+                "subject_code": subject.subject_code, 
+                "subject_name": subject.subject_name, 
+                "internal_marks": subject.internal_marks, 
+                "external_marks": subject.external_marks, 
+                "total_marks": subject.total_marks, 
+                "subject_result": subject.get_subject_result_display(), 
+                "grade": subject.grade, 
                 "attempts": subject.attempts
             })
         
         semester_info = {
-            "roll_number": result.roll_number,
-            "student_name": result.student_name,
-            "year": result.year,
-            "semester": result.semester,
-            "exam_name": result.exam_name,
-            "result_type": result.get_result_type_display(),
-            "overall_result": result.overall_result,
+            "roll_number": result.roll_number, 
+            "student_name": result.student_name, 
+            "year": result.year, 
+            "semester": result.semester, 
+            "exam_name": result.exam_name + (" (Consolidated)" if all_results.count() > 1 else ""), 
+            "result_type": "Consolidated" if all_results.count() > 1 else result.get_result_type_display(), 
+            "overall_result": result.overall_result, 
             "overall_grade": result.overall_grade
         }
         return Response({"semester_info": semester_info, "subjects": subject_details})

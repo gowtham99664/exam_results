@@ -405,6 +405,10 @@ ray-400 disabled:cursor-not-allowed transition-colors"
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Exam Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Students</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pass</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fail</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pass %</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Uploaded Date</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Uploaded By</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -414,6 +418,14 @@ ray-400 disabled:cursor-not-allowed transition-colors"
                   {exams.map((exam, i) => (
                     <tr key={i} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{exam.exam_name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{exam.student_count}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">{exam.pass_count || 0}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">{exam.fail_count || 0}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <span className={(exam.pass_percentage || 0) >= 75 ? 'bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold' : (exam.pass_percentage || 0) >= 50 ? 'bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-semibold' : 'bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold'}>
+                          {(exam.pass_percentage || 0).toFixed(1)}%
+                        </span>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {new Date(exam.uploaded_at).toLocaleDateString('en-US', { 
                           year: 'numeric', 

@@ -3058,3 +3058,53 @@ INFO 2026-02-09 20:36:13,091 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP
 INFO 2026-02-09 20:36:13,355 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
 INFO 2026-02-09 20:36:21,690 basehttp "OPTIONS /api/semesters/123/subjects/ HTTP/1.1" 200 0
 INFO 2026-02-09 20:36:21,980 basehttp "GET /api/semesters/123/subjects/ HTTP/1.1" 200 956
+INFO 2026-02-10 12:08:33,508 autoreload Watching for file changes with StatReloader
+INFO 2026-02-10 12:18:51,834 autoreload Watching for file changes with StatReloader
+INFO 2026-02-10 12:19:35,107 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-10 12:19:59,286 log Unauthorized: /api/health/
+WARNING 2026-02-10 12:19:59,286 basehttp "GET /api/health/ HTTP/1.1" 401 58
+INFO 2026-02-10 12:36:19,550 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-10 12:36:33,074 log Not Found: /
+WARNING 2026-02-10 12:36:33,074 basehttp "GET / HTTP/1.1" 404 2295
+INFO 2026-02-10 12:56:45,538 basehttp "POST /api/login/ HTTP/1.1" 200 894
+INFO 2026-02-10 12:57:49,467 basehttp "OPTIONS /login/ HTTP/1.1" 200 0
+WARNING 2026-02-10 12:57:49,833 log Not Found: /login/
+WARNING 2026-02-10 12:57:49,833 basehttp "POST /login/ HTTP/1.1" 404 2336
+WARNING 2026-02-10 12:58:10,708 log Not Found: /login/
+WARNING 2026-02-10 12:58:10,708 basehttp "POST /login/ HTTP/1.1" 404 2336
+WARNING 2026-02-10 12:58:26,048 log Not Found: /login/
+WARNING 2026-02-10 12:58:26,048 basehttp "POST /login/ HTTP/1.1" 404 2336
+INFO 2026-02-10 12:58:28,447 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-10 12:59:12,728 log Not Found: /login/
+WARNING 2026-02-10 12:59:12,728 basehttp "POST /login/ HTTP/1.1" 404 2336
+WARNING 2026-02-10 12:59:47,418 log Not Found: /login/
+WARNING 2026-02-10 12:59:47,418 basehttp "POST /login/ HTTP/1.1" 404 2336
+INFO 2026-02-10 12:59:48,962 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-10 12:59:58,148 log Not Found: /login/
+WARNING 2026-02-10 12:59:58,149 basehttp "POST /login/ HTTP/1.1" 404 2336
+WARNING 2026-02-10 12:59:59,947 log Not Found: /login/
+WARNING 2026-02-10 12:59:59,948 basehttp "POST /login/ HTTP/1.1" 404 2336
+WARNING 2026-02-10 13:00:01,289 log Not Found: /login/
+WARNING 2026-02-10 13:00:01,290 basehttp "POST /login/ HTTP/1.1" 404 2336
+WARNING 2026-02-10 13:03:33,235 log Not Found: /
+WARNING 2026-02-10 13:03:33,236 basehttp "GET / HTTP/1.1" 404 2295
+INFO 2026-02-10 13:04:01,005 basehttp "OPTIONS /api/login/ HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:01,322 basehttp "POST /api/login/ HTTP/1.1" 200 894
+WARNING 2026-02-10 13:04:01,524 log Method Not Allowed: /api/login/
+WARNING 2026-02-10 13:04:01,525 basehttp "GET /api/login/ HTTP/1.1" 405 40
+INFO 2026-02-10 13:04:01,570 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:01,666 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:01,675 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:01,677 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:01,836 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-10 13:04:02,041 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-10 13:04:02,267 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-10 13:04:02,428 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-10 13:04:13,463 basehttp "OPTIONS /api/students/search/?q=Test123 HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:14,009 basehttp "GET /api/students/search/?q=Test123 HTTP/1.1" 200 132
+INFO 2026-02-10 13:04:16,506 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-10 13:04:16,775 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+WARNING 2026-02-10 13:07:36,132 log Not Found: /api/
+WARNING 2026-02-10 13:07:36,132 basehttp "GET /api/ HTTP/1.1" 404 7301
+WARNING 2026-02-10 13:09:04,393 log Unauthorized: /api/health/
+WARNING 2026-02-10 13:09:04,394 basehttp "GET /api/health/ HTTP/1.1" 401 58

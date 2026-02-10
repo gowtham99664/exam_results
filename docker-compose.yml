@@ -6,10 +6,10 @@ services:
     container_name: spmvv_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password_change_me}
+      MYSQL_DATABASE: ${DB_NAME:-spmvv_results}
+      MYSQL_USER: ${DB_USER:-spmvv_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-spmvv_password_change_me}
     volumes:
       - mysql_data:/var/lib/mysql
       - ./backups:/backups
@@ -18,7 +18,7 @@ services:
     networks:
       - spmvv_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-root_password_change_me}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -30,19 +30,19 @@ services:
     container_name: spmvv_backend
     restart: always
     environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - DEBUG=${DEBUG}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - DB_ENGINE=${DB_ENGINE}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY:-django-insecure-change-this-key}
+      - DEBUG=${DEBUG:-True}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1,backend}
+      - DB_ENGINE=django.db.backends.mysql
+      - DB_NAME=${DB_NAME:-spmvv_results}
+      - DB_USER=${DB_USER:-spmvv_user}
+      - DB_PASSWORD=${DB_PASSWORD:-spmvv_password_change_me}
       - DB_HOST=db
       - DB_PORT=3306
-      - JWT_ACCESS_TOKEN_LIFETIME=${JWT_ACCESS_TOKEN_LIFETIME}
-      - JWT_REFRESH_TOKEN_LIFETIME=${JWT_REFRESH_TOKEN_LIFETIME}
-      - ADMIN_USERNAME=${ADMIN_USERNAME}
-      - ADMIN_DEFAULT_PASSWORD=${ADMIN_DEFAULT_PASSWORD}
+      - JWT_ACCESS_TOKEN_LIFETIME=${JWT_ACCESS_TOKEN_LIFETIME:-60}
+      - JWT_REFRESH_TOKEN_LIFETIME=${JWT_REFRESH_TOKEN_LIFETIME:-1440}
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_DEFAULT_PASSWORD=${ADMIN_DEFAULT_PASSWORD:-SpmvvExamResults@2026}
     volumes:
       - ./backend:/app
       - static_volume:/app/staticfiles
@@ -54,12 +54,10 @@ services:
         condition: service_healthy
     networks:
       - spmvv_network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py init_admin &&
+             gunicorn exam_results.wsgi:application --bind 0.0.0.0:8000 --workers 4 --reload"
 
   frontend:
     build:
@@ -67,17 +65,17 @@ services:
       dockerfile: Dockerfile
     container_name: spmvv_frontend
     restart: always
+    environment:
+      - VITE_API_URL=http://localhost:8000
     ports:
-      - "2026:80"
+      - "2026:2026"
     depends_on:
       - backend
     networks:
       - spmvv_network
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
 volumes:
   mysql_data:

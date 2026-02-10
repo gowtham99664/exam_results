@@ -3022,3 +3022,39 @@ INFO 2026-02-09 19:46:38,245 basehttp "OPTIONS /api/students/TEST123/history/ HT
 INFO 2026-02-09 19:46:38,487 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
 INFO 2026-02-09 19:47:34,249 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
 INFO 2026-02-09 19:47:34,515 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 20:05:26,414 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 20:13:04,807 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:13:04,812 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 20:13:04,813 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 20:13:05,205 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 20:13:05,429 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 20:13:05,554 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 20:13:05,558 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 20:16:40,826 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 20:17:00,694 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 20:17:00,694 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 20:17:00,761 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 20:17:00,761 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 20:18:02,612 basehttp "OPTIONS /api/students/search/?q=test123 HTTP/1.1" 200 0
+INFO 2026-02-09 20:18:03,094 basehttp "GET /api/students/search/?q=test123 HTTP/1.1" 200 132
+INFO 2026-02-09 20:18:05,110 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:18:05,755 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 20:18:30,475 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:18:31,320 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 20:21:05,213 autoreload Watching for file changes with StatReloader
+INFO 2026-02-09 20:21:12,451 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 20:21:12,452 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:21:12,452 basehttp "OPTIONS /api/exams/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:21:12,455 basehttp "OPTIONS /api/statistics/? HTTP/1.1" 200 0
+INFO 2026-02-09 20:21:12,901 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 20:21:12,936 basehttp "GET /api/exams/ HTTP/1.1" 200 1062
+INFO 2026-02-09 20:21:12,956 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 20:21:12,978 basehttp "GET /api/statistics/? HTTP/1.1" 200 4540
+INFO 2026-02-09 20:35:59,482 basehttp "OPTIONS /api/students/search/?q=test123 HTTP/1.1" 200 0
+INFO 2026-02-09 20:35:59,856 basehttp "GET /api/students/search/?q=test123 HTTP/1.1" 200 132
+INFO 2026-02-09 20:36:01,831 basehttp "OPTIONS /api/students/TEST123/history/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:36:02,141 basehttp "GET /api/students/TEST123/history/ HTTP/1.1" 200 1189
+INFO 2026-02-09 20:36:13,091 basehttp "OPTIONS /api/semesters/117/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:36:13,355 basehttp "GET /api/semesters/117/subjects/ HTTP/1.1" 200 972
+INFO 2026-02-09 20:36:21,690 basehttp "OPTIONS /api/semesters/123/subjects/ HTTP/1.1" 200 0
+INFO 2026-02-09 20:36:21,980 basehttp "GET /api/semesters/123/subjects/ HTTP/1.1" 200 956

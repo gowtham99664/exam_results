@@ -42,9 +42,9 @@ services:
       - JWT_ACCESS_TOKEN_LIFETIME=${JWT_ACCESS_TOKEN_LIFETIME:-60}
       - JWT_REFRESH_TOKEN_LIFETIME=${JWT_REFRESH_TOKEN_LIFETIME:-1440}
       - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
-      - ADMIN_DEFAULT_PASSWORD=${ADMIN_DEFAULT_PASSWORD:-SpmvvExamResults@2026}
+      - ADMIN_DEFAULT_PASSWORD=${ADMIN_DEFAULT_PASSWORD:-SpmvvExamResults}
+      - CORS_ALLOWED_ORIGINS=http://localhost:2026,http://127.0.0.1:2026
     volumes:
-      - ./backend:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     ports:
@@ -57,25 +57,24 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py init_admin &&
-             gunicorn exam_results.wsgi:application --bind 0.0.0.0:8000 --workers 4 --reload"
+             gunicorn exam_results.wsgi:application --bind 0.0.0.0:8000 --workers 4"
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL:-http://localhost:8000/api}
     container_name: spmvv_frontend
     restart: always
     environment:
-      - VITE_API_URL=http://localhost:8000
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8000/api}
     ports:
       - "2026:2026"
     depends_on:
       - backend
     networks:
       - spmvv_network
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
 
 volumes:
   mysql_data:

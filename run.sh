@@ -105,15 +105,23 @@ echo "✓ Services stopped"
 
 echo ""
 echo "[2/8] Backing up database..."
-if command -v mysqldump &> /dev/null; then
-    mysqldump -u spmvv_user -pSpmvvDb@2026 spmvv_results > "$BACKUP_DIR/spmvv_results_$TIMESTAMP.sql" 2>/dev/null
-    if [ $? -eq 0 ]; then
-        echo "✓ Database backed up"
+if command -v mysql &> /dev/null && command -v mysqldump &> /dev/null; then
+    # Check if database exists and has tables
+    TABLE_COUNT=$(mysql -u spmvv_user -pSpmvvDb@2026 -e "USE spmvv_results; SHOW TABLES;" 2>/dev/null | wc -l)
+    
+    if [ $? -eq 0 ] && [ "$TABLE_COUNT" -gt 1 ]; then
+        # Database exists and has tables (subtract 1 for header row)
+        mysqldump -u spmvv_user -pSpmvvDb@2026 spmvv_results > "$BACKUP_DIR/spmvv_results_$TIMESTAMP.sql" 2>/dev/null
+        if [ $? -eq 0 ]; then
+            echo "✓ Database backed up to: $BACKUP_DIR/spmvv_results_$TIMESTAMP.sql"
+        else
+            echo "⚠ Database backup failed"
+        fi
     else
-        echo "⚠ Database backup skipped (database may not be configured)"
+        echo "⚠ Database backup skipped (database not yet initialized or empty)"
     fi
 else
-    echo "⚠ Database backup skipped (mysqldump not available)"
+    echo "⚠ Database backup skipped (MySQL client/mysqldump not available)"
 fi
 
 echo ""

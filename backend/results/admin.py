@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Result, Subject, Notification, AuditLog, LoginAttempt
+from .models import User, Result, Subject, Notification, AuditLog, LoginAttempt, Circular
 
 
 @admin.register(User)
@@ -112,3 +112,11 @@ class LoginAttemptAdmin(admin.ModelAdmin):
     
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
+
+
+@admin.register(Circular)
+class CircularAdmin(admin.ModelAdmin):
+    list_display = ["title", "category", "created_by", "is_active", "created_at"]
+    list_filter = ["category", "is_active", "target_year", "target_branch"]
+    search_fields = ["title", "description"]
+    readonly_fields = ["created_by", "created_at", "updated_at"]

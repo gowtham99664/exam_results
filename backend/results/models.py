@@ -219,3 +219,64 @@ class Notification(models.Model):
     
     def __str__(self):
         return f"{self.student.username} - {self.message[:50]}"
+
+
+class Circular(models.Model):
+    """Model for admin circulars/notifications with file attachments"""
+    CATEGORY_CHOICES = [
+        ("general", "General Notification"),
+        ("exam", "Exam Related"),
+        ("academic", "Academic"),
+        ("admission", "Admission"),
+        ("event", "Event/Activity"),
+        ("urgent", "Urgent"),
+    ]
+    
+    title = models.CharField(max_length=300, help_text="Circular title")
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="general")
+    description = models.TextField(help_text="Detailed description/message")
+    
+    # File attachment (PDF/Images)
+    attachment = models.FileField(
+        upload_to="circulars/%Y/%m/",
+        null=True,
+        blank=True,
+        help_text="Attach PDF, JPG, JPEG, PNG files"
+    )
+    attachment_name = models.CharField(max_length=255, blank=True, help_text="Original filename")
+    
+    # Visibility
+    is_active = models.BooleanField(default=True, help_text="Show to students")
+    target_year = models.IntegerField(null=True, blank=True, help_text="Target specific year (1,2,3,4) or NULL for all")
+    target_branch = models.CharField(max_length=50, null=True, blank=True, help_text="Target specific branch or NULL for all")
+    
+    # Metadata
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="circulars")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = "circulars"
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(fields=["-created_at", "is_active"]),
+            models.Index(fields=["category", "is_active"]),
+        ]
+    
+    def __str__(self):
+        return f"{self.title} ({self.category})"
+    
+    def get_file_extension(self):
+        """Get file extension"""
+        if self.attachment:
+            return self.attachment.name.split(".")[-1].lower()
+        return None
+    
+    def is_pdf(self):
+        """Check if attachment is PDF"""
+        return self.get_file_extension() == "pdf"
+    
+    def is_image(self):
+        """Check if attachment is image"""
+        ext = self.get_file_extension()
+        return ext in ["jpg", "jpeg", "png", "gif"]

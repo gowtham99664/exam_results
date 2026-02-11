@@ -12,6 +12,7 @@ urlpatterns = [
     # Result management endpoints
     path('results/upload/', views.upload_results, name='upload_results'),
     path('results/all/', views.get_results, name='get_all_results'),
+    path("results/consolidated/", views.get_consolidated_results, name="get_consolidated_results"),
     path('results/', views.get_results, name='get_results'),
     
     # Exam management endpoints
@@ -27,6 +28,7 @@ urlpatterns = [
     # Notification endpoints
     path('notifications/', views.get_notifications, name='get_notifications'),
     path('notifications/<int:notification_id>/read/', views.mark_notification_read, name='mark_notification_read'),
+    path("notifications/combined/", views.get_combined_notifications, name="get_combined_notifications"),
     
     # Student management endpoints
     path('students/search/', student_management.search_student, name='search_student'),
@@ -41,6 +43,10 @@ urlpatterns = [
     path('users/<int:user_id>/reset-password/', views.reset_user_password, name='reset_user_password'),
     path('users/<int:user_id>/delete/', views.delete_user, name='delete_user'),
     path('users/permissions/', views.get_user_permissions, name='get_user_permissions'),
+
+    # Circular management endpoints
+    path('circulars/', views.manage_circulars, name='manage_circulars'),
+    path('circulars/<int:circular_id>/', views.circular_detail, name='circular_detail'),
 
     # Health check endpoint
     path('health/', views.health_check, name='health_check'),

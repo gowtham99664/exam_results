@@ -12,6 +12,9 @@ export const resultsService = {
     const response = await api.get('/results/consolidated/');
     return response.data;
   },
+    const response = await api.get('/results/');
+    return response.data;
+  },
 
   // Get all results (admin)
   getAllResults: async (filters = {}) => {
@@ -49,7 +52,7 @@ export const resultsService = {
     return response.data;
   },
 
-  // Upload results (admin)
+  // Upload results (admin) - NOW WITH BRANCH PARAMETER
   uploadResults: async (file, year, semester, resultType, course, examHeldDate) => {
     const formData = new FormData();
     formData.append('file', file);

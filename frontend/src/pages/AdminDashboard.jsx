@@ -11,7 +11,7 @@ import Toast from '../components/Toast';
 import SemesterSummaryTable from '../components/SemesterSummaryTable';
 import { useIdleTimeout } from '../hooks/useIdleTimeout';
 import { validateExcelFile } from '../utils/validation';
-import { FaUpload, FaKey, FaUsers, FaDownload, FaCalendar, FaTrash, FaChartBar, FaFileExcel, FaSearch } from 'react-icons/fa';
+import { FaUpload, FaKey, FaUsers, FaDownload, FaCalendar, FaTrash, FaChartBar, FaFileExcel, FaSearch, FaBullhorn } from 'react-icons/fa';
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -374,6 +374,13 @@ ray-400 disabled:cursor-not-allowed transition-colors"
                 Manage Users
               </button>
             )}
+            <button 
+              onClick={() => navigate("/admin/circulars")} 
+              className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 mb-3 flex items-center justify-center"
+            >
+              <FaBullhorn className="mr-2" />
+              Manage Circulars
+            </button>
             <button 
               onClick={handleDownloadTemplate} 
               className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 mb-3 flex items-center justify-center"

@@ -7,6 +7,8 @@ import Register from './pages/Register';
 import StudentDashboard from './pages/StudentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import UserManagement from './pages/UserManagement';
+import CircularManagement from './pages/CircularManagement';
+import StudentCirculars from './pages/StudentCirculars';
 
 function App() {
   return (
@@ -21,9 +23,19 @@ function App() {
               <StudentDashboard />
             </ProtectedRoute>
           } />
+          <Route path="/student/circulars" element={
+            <ProtectedRoute requiredRole="student">
+              <StudentCirculars />
+            </ProtectedRoute>
+          } />
           <Route path="/admin/dashboard" element={
             <ProtectedRoute requiredRole="admin">
               <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/circulars" element={
+            <ProtectedRoute requiredRole="admin">
+              <CircularManagement />
             </ProtectedRoute>
           } />
           <Route path="/user-management" element={

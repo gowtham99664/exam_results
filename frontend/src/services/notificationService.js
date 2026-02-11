@@ -7,6 +7,12 @@ export const notificationService = {
     return response.data;
   },
 
+  // Get combined notifications (exam results + circulars)
+  getCombinedNotifications: async () => {
+    const response = await api.get('/notifications/combined/');
+    return response.data;
+  },
+
   // Get unread notification count
   getUnreadCount: async () => {
     const response = await api.get('/notifications/unread-count');

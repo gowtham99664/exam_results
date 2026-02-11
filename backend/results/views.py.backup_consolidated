@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from .models import User, Result, Subject, Notification, AuditLog, Circular
 from .serializers import (
     UserRegistrationSerializer, PasswordChangeSerializer,
-    ResultSerializer, SubjectSerializer, NotificationSerializer, AuditLogSerializer, CircularSerializer
+    ResultSerializer, NotificationSerializer, AuditLogSerializer, CircularSerializer
 )
 from .middleware import LoginAttemptMiddleware
 from .excel_handler import ExcelValidator
@@ -569,141 +569,6 @@ def get_results(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_consolidated_results(request):
-    """
-    Get consolidated results grouped by year/semester with current SGPA calculation.
-    For each year/semester:
-    - Show all exam attempts (regular, supplementary)
-    - Calculate current SGPA using best grades across all attempts
-    - Show pending subjects count
-    """
-    user = request.user
-    
-    if user.role != 'student' or not user.roll_number:
-        return Response({
-            'error': 'Only students with roll numbers can access consolidated results'
-        }, status=status.HTTP_403_FORBIDDEN)
-    
-    # Get all results for the student
-    results = Result.objects.filter(roll_number=user.roll_number).order_by('year', 'semester', 'uploaded_at')
-    
-    if not results.exists():
-        return Response({
-            'count': 0,
-            'consolidated_results': []
-        })
-    
-    # Group results by year and semester
-    year_semester_groups = {}
-    for result in results:
-        key = f"{result.year}_{result.semester}"
-        if key not in year_semester_groups:
-            year_semester_groups[key] = {
-                'year': result.year,
-                'semester': result.semester,
-                'attempts': []
-            }
-        
-        # Get subjects for this attempt
-        subjects = Subject.objects.filter(result=result).order_by('id')
-        subjects_data = SubjectSerializer(subjects, many=True).data
-        
-        year_semester_groups[key]['attempts'].append({
-            'result_id': result.id,
-            'exam_name': result.exam_name,
-            'result_type': result.result_type,
-            'result_type_display': result.get_result_type_display(),
-            'uploaded_at': result.uploaded_at.strftime('%Y-%m-%d'),
-            'original_sgpa': result.sgpa,
-            'original_result': result.overall_result,
-            'total_marks': result.total_marks,
-            'subjects': subjects_data
-        })
-    
-    # Calculate current SGPA and pending subjects for each year/semester
-    consolidated_results = []
-    for key, group_data in year_semester_groups.items():
-        # Collect all subjects across all attempts
-        all_subjects = {}  # key: subject_code, value: best subject data
-        
-        for attempt in group_data['attempts']:
-            for subject in attempt['subjects']:
-                subject_code = subject['subject_code']
-                
-                # If subject not seen before, or if this is a more recent attempt, update it
-                if subject_code not in all_subjects:
-                    all_subjects[subject_code] = subject
-                else:
-                    # Compare grades - use the latest attempt (most recent upload)
-                    # The attempts are already ordered by uploaded_at
-                    all_subjects[subject_code] = subject
-        
-        # Calculate current SGPA using best grades
-        grade_points = {'O': 10, 'A': 9, 'B': 8, 'C': 7, 'D': 6, 'F': 0}
-        total_credits = 0
-        weighted_sum = 0
-        pending_subjects = []
-        
-        for subject_code, subject in all_subjects.items():
-            credits = subject.get('credits', 0)
-            grade = subject.get('grade', '').strip().upper()
-            
-            if credits and grade in grade_points:
-                total_credits += credits
-                weighted_sum += grade_points[grade] * credits
-                
-                # Track pending (failed) subjects
-                if grade == 'F':
-                    pending_subjects.append({
-                        'subject_code': subject_code,
-                        'subject_name': subject.get('subject_name', '')
-                    })
-        
-        current_sgpa = round(weighted_sum / total_credits, 2) if total_credits > 0 else None
-        
-        # Determine current result status
-        if len(pending_subjects) > 0:
-            current_result = 'Fail'
-        elif current_sgpa and current_sgpa >= 6.0:
-            current_result = 'Pass'
-        else:
-            current_result = 'Fail'
-        
-        # Get year name
-        year_names = {1: 'I', 2: 'II', 3: 'III', 4: 'IV'}
-        year_display = f"{year_names.get(group_data['year'], group_data['year'])} Year"
-        semester_display = f"{year_names.get(group_data['semester'], group_data['semester'])} Semester"
-        
-        consolidated_results.append({
-            'year': group_data['year'],
-            'semester': group_data['semester'],
-            'year_display': year_display,
-            'semester_display': semester_display,
-            'attempts': group_data['attempts'],
-            'current_sgpa': current_sgpa,
-            'current_result': current_result,
-            'pending_subjects_count': len(pending_subjects),
-            'pending_subjects': pending_subjects,
-            'best_subjects': list(all_subjects.values())
-        })
-    
-    # Sort by year and semester
-    consolidated_results.sort(key=lambda x: (x['year'], x['semester']))
-    
-    # Create audit log
-    create_audit_log(user, 'consolidated_result_view', 
-                    f"Viewed consolidated results: {len(consolidated_results)} year/semester groups", request)
-    
-    return Response({
-        'count': len(consolidated_results),
-        'consolidated_results': consolidated_results
-    })
-
-
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def get_notifications(request):
     """Get notifications for logged-in student"""
     user = request.user
@@ -753,82 +618,6 @@ def mark_notification_read(request, notification_id):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def health_check(request):
-    pass
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_combined_notifications(request):
-    """
-    Get combined notifications and circulars for student dashboard.
-    Returns latest 3 items combining exam notifications and circulars.
-    """
-    user = request.user
-    
-    if user.role != 'student':
-        return Response({
-            'error': 'This endpoint is only for students'
-        }, status=status.HTTP_403_FORBIDDEN)
-    
-    combined_items = []
-    
-    # Get exam notifications
-    notifications = Notification.objects.filter(student=user, is_read=False).order_by('-created_at')
-    for notif in notifications:
-        combined_items.append({
-            'id': f'notif_{notif.id}',
-            'type': 'exam_notification',
-            'title': 'New Exam Result',
-            'message': notif.message,
-            'created_at': notif.created_at,
-            'is_read': notif.is_read,
-            'result_id': notif.result_id,
-            'notification_id': notif.id
-        })
-    
-    # Get circulars (same filtering as manage_circulars)
-    circulars = Circular.objects.filter(is_active=True)
-    
-    # Get year from latest result
-    result = Result.objects.filter(roll_number=user.roll_number).order_by('-year', '-semester').first()
-    if result:
-        circulars = circulars.filter(
-            Q(target_year=result.year) | Q(target_year__isnull=True)
-        )
-    
-    # Filter by branch from user profile
-    if user.branch:
-        circulars = circulars.filter(
-            Q(target_branch__iexact=user.branch) | Q(target_branch__isnull=True)
-        )
-    
-    circulars = circulars.order_by('-created_at')
-    
-    for circ in circulars:
-        combined_items.append({
-            'id': f'circ_{circ.id}',
-            'type': 'circular',
-            'title': circ.title,
-            'message': circ.description,
-            'created_at': circ.created_at,
-            'category': circ.category,
-            'file_url': request.build_absolute_uri(circ.attachment.url) if circ.attachment else None,
-            'circular_id': circ.id
-        })
-    
-    # Sort by created_at descending
-    combined_items.sort(key=lambda x: x['created_at'], reverse=True)
-    
-    # Get latest 3 for dashboard
-    latest_3 = combined_items[:3]
-    
-    return Response({
-        'count': len(latest_3),
-        'total_unread_notifications': Notification.objects.filter(student=user, is_read=False).count(),
-        'total_active_circulars': circulars.count(),
-        'items': latest_3
-    })
-
     """Health check endpoint"""
     try:
         # Check database connectivity
@@ -1653,22 +1442,18 @@ def manage_circulars(request):
         # Students and admins can view
         circulars = Circular.objects.filter(is_active=True)
         
-        # Filter by student year/branch if student
+        # Filter by student's year/branch if student
         if request.user.role == "student":
-            # Get year from latest result (if available)
-            result = Result.objects.filter(roll_number=request.user.roll_number).order_by('-year', '-semester').first()
-            
-            if result:
-                # Filter by year: show circulars for their year or all years (NULL)
-                circulars = circulars.filter(
-                    Q(target_year=result.year) | Q(target_year__isnull=True)
-                )
-            
-            # Filter by branch: use branch from user profile
-            if request.user.branch:
-                circulars = circulars.filter(
-                    Q(target_branch__iexact=request.user.branch) | Q(target_branch__isnull=True)
-                )
+            if request.user.roll_number:
+                # Get student's year and branch from their results
+                result = Result.objects.filter(roll_number=request.user.roll_number).first()
+                if result:
+                    # Show circulars for their year or all years
+                    circulars = circulars.filter(
+                        models.Q(target_year=result.year) | models.Q(target_year__isnull=True)
+                    ).filter(
+                        models.Q(target_branch=result.branch) | models.Q(target_branch__isnull=True)
+                    )
         
         circulars = circulars.order_by("-created_at")
         serializer = CircularSerializer(circulars, many=True, context={"request": request})
@@ -1685,12 +1470,7 @@ def manage_circulars(request):
                 "error": "Only admins can create circulars"
             }, status=status.HTTP_403_FORBIDDEN)
         
-        # Normalize target_branch to uppercase
-        data = request.data.copy()
-        if data.get("target_branch"):
-            data["target_branch"] = data["target_branch"].strip().upper()
-        
-        serializer = CircularSerializer(data=data, context={"request": request})
+        serializer = CircularSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             # Save with created_by
             circular = serializer.save(created_by=request.user)
@@ -1742,12 +1522,7 @@ def circular_detail(request, circular_id):
                 "error": "Only admins can update circulars"
             }, status=status.HTTP_403_FORBIDDEN)
         
-        # Normalize target_branch to uppercase
-        data = request.data.copy()
-        if data.get("target_branch"):
-            data["target_branch"] = data["target_branch"].strip().upper()
-        
-        serializer = CircularSerializer(circular, data=data, partial=True, context={"request": request})
+        serializer = CircularSerializer(circular, data=request.data, partial=True, context={"request": request})
         if serializer.is_valid():
             updated_circular = serializer.save()
             

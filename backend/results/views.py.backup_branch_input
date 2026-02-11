@@ -1685,12 +1685,7 @@ def manage_circulars(request):
                 "error": "Only admins can create circulars"
             }, status=status.HTTP_403_FORBIDDEN)
         
-        # Normalize target_branch to uppercase
-        data = request.data.copy()
-        if data.get("target_branch"):
-            data["target_branch"] = data["target_branch"].strip().upper()
-        
-        serializer = CircularSerializer(data=data, context={"request": request})
+        serializer = CircularSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             # Save with created_by
             circular = serializer.save(created_by=request.user)
@@ -1742,12 +1737,7 @@ def circular_detail(request, circular_id):
                 "error": "Only admins can update circulars"
             }, status=status.HTTP_403_FORBIDDEN)
         
-        # Normalize target_branch to uppercase
-        data = request.data.copy()
-        if data.get("target_branch"):
-            data["target_branch"] = data["target_branch"].strip().upper()
-        
-        serializer = CircularSerializer(circular, data=data, partial=True, context={"request": request})
+        serializer = CircularSerializer(circular, data=request.data, partial=True, context={"request": request})
         if serializer.is_valid():
             updated_circular = serializer.save()
             
